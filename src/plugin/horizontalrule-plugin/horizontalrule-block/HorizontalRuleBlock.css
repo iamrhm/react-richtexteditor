@@ -1,0 +1,23 @@
+.horizontal-rule-block{
+  box-sizing: content-box;
+  height: 0;
+  display: block;
+  border: 0;
+  text-align: center;
+  overflow: visible;
+  margin-bottom: 50px;
+}
+
+.horizontal-rule-block::after{
+  font-family: medium-content-slab-serif-font,Georgia,Cambria,"Times New Roman",Times,serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 30px;
+  letter-spacing: .6em;
+  color: rgba(0, 0, 0, 0.26);
+  content: '...';
+  display: inline-block;
+  color: rgba(0,0,0,.68);
+  position: relative;
+  top: -15px;
+}

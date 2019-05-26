@@ -6,13 +6,13 @@ import FormControl from '@material-ui/core/FormControl';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 
-import './InputDialog.css'
+import './InputModal.css'
 
 const formControlStyle = {
   flexDirection: 'row'
 }
 
-const InputDialog = ({
+const InputModal = ({
   entityType,
   open,
   onChange = () => { },
@@ -68,4 +68,4 @@ const InputDialog = ({
   )
 }
 
-export default InputDialog;
+export default InputModal;

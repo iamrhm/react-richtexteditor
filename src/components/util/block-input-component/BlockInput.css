@@ -1,0 +1,20 @@
+textarea::-webkit-input-placeholder {
+  text-align: center !important
+}
+textarea:-moz-placeholder {
+  text-align: center !important
+}
+textarea::-moz-placeholder { 
+  text-align: center !important;  
+}
+
+textarea:-ms-input-placeholder {  
+  text-align: center !important; 
+}
+
+.block-input-field > div::before{
+  border:none !important;
+}
+.block-input-field > div::after{
+  border:none !important;
+}

@@ -5,3 +5,12 @@
 .editor-container{
     padding: 6%;
 }
+
+#editor{
+  font-family: medium-content-serif-font,Georgia,Cambria,"Times New Roman",Times,serif;
+  font-size: 18px;
+  line-height: 1.58;
+  letter-spacing: -.004em;
+  color: rgba(0,0,0,.84);
+  word-break: break-word;
+}

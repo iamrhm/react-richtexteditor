@@ -5,44 +5,32 @@ import {
   CompositeDecorator,
   RichUtils,
   Modifier,
-  AtomicBlockUtils
 } from 'draft-js';
 
-import {cunstomButtonMap,customStyleMap,customEntityMap} from './config/custom-style';
+import decoratorArray from './decorators'
+import insertDataBlock from './util/insertCustomeBlock'
+import addLink from "./util/addLink"
+import CustomeComponentBlock from './components/custome-component-block'
+import { cunstomButtonMap, customStyleMap, customEntityMap } from './config/buttonInputList';
+import DEFAULT_PLUGINS from './plugin'
 
-import InputPanel from './components/input-button';
-import InputDialog from './components/input-dialog';
-import LinkComponent from './components/link-component';
-import Image from './components/image-component'
+import InputButtonList from './components/input-button-list';
+import InputModal from './components/input-modal';
 
 import './App.css';
-
-
-function findLinkEntities(contentBlock, callback, contentState) {
-  contentBlock.findEntityRanges(
-    (character) => {
-      const entityKey = character.getEntity()
-      return (
-        entityKey !== null &&
-        contentState.getEntity(entityKey).getType() === 'LINK'
-      );
-    }, callback);
-}
 
 class App extends Component {
   constructor(props) {
     super(props)
-    const decorator = new CompositeDecorator([
-      {
-        strategy: findLinkEntities,
-        component: LinkComponent,
-      },
-    ]);
+    const decorator = new CompositeDecorator(decoratorArray);
     this.state = {
       editorState: EditorState.createEmpty(decorator),
       openInputDialouge: false,
       userInputType: '',
       userInputLink: '',
+      readOnly: false,
+      getInitialReadOnly: this.getInitialReadOnly,
+      setInitialReadOnly: this.setInitialReadOnly
     }
     this.focus = () => { this.refs.editorRef.focus() }
   }
@@ -51,53 +39,96 @@ class App extends Component {
     this.focus()
   }
 
-  userEventListner = (e, key) => {
-    console.log(key)
+  getInitialReadOnly = () => {
+    return this.props.readOnly || false;
+  }
+
+  setInitialReadOnly = () => {
+    let readOnly = this.props.readOnly || false;
+    this.setState({ readOnly });
+  }
+
+  setReadOnly = (readOnly) => {
+    this.setState({ readOnly: readOnly });
+  }
+
+  getReadOnly = () => {
+    return this.state.readOnly;
+  }
+
+  getPluginsByType = (type) => {
+    let pluginsByType = {};
+    for (let plugin of DEFAULT_PLUGINS) {
+      if (plugin.type.toUpperCase() === type.toUpperCase())
+        pluginsByType = plugin;
+    }
+    return pluginsByType;
+  }
+
+  userEventListner = (e, eventType) => {
     e.preventDefault();
-    if (customStyleMap[key] !== undefined) {
-      this.toggleStyle(key)
-    } 
-    else if (customEntityMap[key] !== undefined) {
-      if(key === 'image'){
-        let el = e.target
-        this.addImage(el)
-      }
-      else if(key === 'link'){
-        this.setState({
-          openInputDialouge: true,
-          userInputType : key
-        });
+    if (customStyleMap[eventType] !== undefined) {
+      this.toggleStyle(eventType)
+    }
+    else if (customEntityMap[eventType] !== undefined) {
+      switch (eventType) {
+        case 'link':
+          this.setState({
+            openInputDialouge: true,
+            userInputType: eventType
+          });
+          break;
+        case 'image':
+          {
+            debugger
+            const img = e.target.files[0]
+            if(!img)
+              break;
+            const fr = new FileReader();
+            fr.readAsDataURL(img)
+            fr.addEventListener('load', (e) => {
+              this.updateEditor(insertDataBlock(this.state.editorState,
+                { src: e.target.result, type: "image", caption: '' }
+              ))
+            })
+            break;
+          }
+        case 'break': {
+          let data = { type: "horizontalrule" };
+          this.updateEditor(insertDataBlock(this.state.editorState, data));
+          break;
+        }
+        case 'log':
+          this.logState()
+          break;
+        default:
+          break;
       }
     }
   }
 
-  toggleStyle = (toggledStyle) => {
-    /* check event*/
-    console.log('ChangeStyle', toggledStyle);
+  logState = () => {
+    console.log('State', JSON.stringify(this.state.editorState, null, 4))
+  }
 
+  toggleStyle = (toggledStyle) => {
     const { editorState } = this.state;
     const selection = editorState.getSelection();
-
-    /* All Inline style removed for that selection */
     const nextContentState = Object.keys(customStyleMap)
       .reduce((contentState, color) => {
         return Modifier.removeInlineStyle(contentState, selection, color)
       }, editorState.getCurrentContent());
-
     let nextEditorState = EditorState.push(
       editorState,
       nextContentState,
       'change-inline-style'
     );
-
-    /* selection inline style */
     const currentStyle = editorState.getCurrentInlineStyle();
     if (selection.isCollapsed()) {
       nextEditorState = currentStyle.reduce((state, color) => {
         return RichUtils.toggleInlineStyle(state, color);
       }, nextEditorState);
     }
-
     if (!currentStyle.has(toggledStyle)) {
       nextEditorState = RichUtils.toggleInlineStyle(
         nextEditorState,
@@ -107,79 +138,73 @@ class App extends Component {
     this.updateEditor(nextEditorState)
   }
 
-  onInputChange = (e,entityType) => {
+  onInputChange = (e, entityType) => {
     e.preventDefault()
     let el = e.target
     let newInput
-    if(entityType === 'link'){
+    if (entityType === 'link') {
       newInput = el.value;
-      this.setState({ userInputLink: newInput }) 
+      this.setState({ userInputLink: newInput })
     }
   }
 
-  addNewEntity = (e,entityType) => {
+  addNewEntity = (e, entityType) => {
     e.preventDefault()
-    if(entityType ==='link'){
-        this.addLink()
+    if (entityType === 'link') {
+      const editorState = addLink(this.state)
+      this.setState({
+        editorState: editorState,
+        openInputDialouge: false,
+        userInputLink: ''
+      },()=>{this.focus()})
     }
   }
 
-  addImage = (el) =>{
-    const data = el.files[0]
-   const fr = new FileReader();
-   fr.readAsDataURL(data)
-   fr.addEventListener('load', (e) =>{
-      this.createImageEntity({src : e.target.result, data:'Text'})
-   })
+  getEditorState = () => {
+    return this.state.editorState
   }
 
-  createImageEntity =(data) =>{
-    const {editorState} = this.state
-    const contentState = editorState.getCurrentContent()
-    const newContentState = contentState.createEntity("IMAGE","IMMUTABLE",data)
-    const entityKey = newContentState.getLastCreatedEntityKey()
-    const newEditorState = EditorState.set(editorState, {
-      currentContent: newContentState
-    });
-    this.setState({
-      editorState : AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, " ")
-    })
-  }
+  cunstomeBlockRender = (block) => {
+    if (block.getType() !== "atomic") {
+      return null;
+    }
 
-  cunstomeBlockRender = (block) =>{
-    if(block.getType() === "atomic"){
-      const {editorState} = this.state;
-      const contentState = editorState.getCurrentContent()
-      const entityKey = block.getEntityAt(0);
-      if(contentState.getEntity(entityKey).type === 'IMAGE'){
-        return {
-          component : Image,
-          editable : false,
-        }
+    const type = block.getData().toObject().type
+
+    let plugin = this.getPluginsByType(type);
+    return {
+      component: CustomeComponentBlock,
+      editable: false,
+      props: {
+        plugin: plugin,
+        onChange: this.updateEditor,
+        editorState: this.state.editorState,
+        getEditorState: this.getEditorState,
+        setReadOnly: this.setReadOnly,
+        getReadOnly: this.getReadOnly,
+        getInitialReadOnly: this.getInitialReadOnly,
+        setInitialReadOnly: this.setInitialReadOnly
       }
     }
   }
 
-  addLink = () =>{
-    const { editorState, userInputLink } = this.state;
-    const contentState = editorState.getCurrentContent();
-    const contentStateWithEntity = contentState.createEntity(
-      'LINK',
-      'MUTABLE',
-      { url: userInputLink }
-    );
-    const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
-    const newEditorState = EditorState.set(editorState, { currentContent: contentStateWithEntity });
-    var selection = newEditorState.getSelection();
-    this.setState({
-      editorState: RichUtils.toggleLink(
-        newEditorState,
-        selection,
-        entityKey
-      ),
-      openInputDialouge: false,
-      userInputLink: ''
-    }, () => {setTimeout(this.focus(),0)});
+  handleKeyCommand = (command) => {
+    const { editorState } = this.state;
+    const newEditorState = RichUtils.handleKeyCommand(editorState, command);
+    this.logState(newEditorState)
+    if (newEditorState) {
+      this.updateEditor(newEditorState)
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  blockStyleFn = (contentBlock) => {
+    const type = contentBlock.getType();
+    if (type === "unstyled") {
+      return "paragraph";
+    }
   }
 
   closeDialougeBox = (e) => {
@@ -199,26 +224,31 @@ class App extends Component {
   render() {
     return (
       <div className='editor-container'>
-        <InputPanel
+        <InputButtonList
           editorState={this.state.editorState}
           buttonValues={cunstomButtonMap}
           userEventListner={this.userEventListner}
         />
-        <InputDialog
-          entityType = {this.state.userInputType}
+        <InputModal
+          entityType={this.state.userInputType}
           open={this.state.openInputDialouge}
           onChange={this.onInputChange}
           saveInput={this.addNewEntity}
           onClose={this.closeDialougeBox}
           userInputLink={this.state.userInputLink}
         />
-        <Editor
-          customStyleMap={customStyleMap}
-          editorState={this.state.editorState}
-          onChange={(editorState) => { this.updateEditor(editorState) }}
-          blockRendererFn = {(block) => this.cunstomeBlockRender(block)}
-          ref="editorRef"
-        />
+        <div id='editor'>
+          <Editor
+            readOnly={this.state.readOnly}
+            customStyleMap={customStyleMap}
+            blockStyleFn={this.blockStyleFn}
+            blockRendererFn={(block) => this.cunstomeBlockRender(block)}
+            editorState={this.state.editorState}
+            onChange={(editorState) => { this.updateEditor(editorState) }}
+            handleKeyCommand={this.handleKeyCommand}
+            ref="editorRef"
+          />
+        </div>
       </div>
     );
   }

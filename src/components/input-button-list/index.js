@@ -12,7 +12,8 @@ const activeButtonStyle = {
   border: '.5px solid rgba(0, 0, 0, 0.19)',
   margin: '1%',
 }
-const InputPanel = ({ 
+
+const InputButtonList = ({ 
   editorState, 
   buttonValues, 
   userEventListner, 
@@ -64,4 +65,4 @@ const InputPanel = ({
     </div>
   )
 }
-export default InputPanel
+export default InputButtonList
