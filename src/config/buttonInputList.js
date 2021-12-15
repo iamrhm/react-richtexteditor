@@ -19,12 +19,8 @@ const customEntityMap = {
   image: {},
   break : {},
   log:{},
-  // TODO:
-  // 'embed link': {
-  //   color: 'rgba(0, 180, 0, 1.0)',
-  // },
 }
 
-const cunstomButtonMap = Object.assign({},customStyleMap,customEntityMap)
+const customButtonMap = Object.assign({},customStyleMap,customEntityMap)
 
-export {cunstomButtonMap, customStyleMap, customEntityMap}
+export {customButtonMap, customStyleMap, customEntityMap}

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { EditorState, SelectionState, Modifier } from "draft-js";
 
-export default class CustomeComponentBlock extends Component {
+export default class CustomComponentBlock extends Component {
   constructor(props) {
     super(props);
     this.onChange = this.props.blockProps.onChange;
