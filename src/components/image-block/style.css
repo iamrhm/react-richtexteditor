@@ -17,7 +17,7 @@
   height: 100%;
 }
 
-.upoaded-image{
+.uploaded-image{
   left: 0;
   top: 0;
   width: 100%;
@@ -33,7 +33,7 @@
 .imageCaption{
   width: 100%;
   text-align: center;
-  position: relative;  
+  position: relative;
   font-weight: 400;
   font-family: medium-content-sans-serif-font,"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Geneva,Arial,sans-serif;
   letter-spacing: -.02em;
@@ -51,17 +51,17 @@
   .image-component::-webkit-input-placeholder {
     text-align: center;
  }
- 
+
  .image-component:-moz-placeholder { /* Firefox 18- */
-    text-align: center;  
+    text-align: center;
  }
- 
+
  .image-component::-moz-placeholder {  /* Firefox 19+ */
-    text-align: center;  
+    text-align: center;
  }
- 
- .image-component:-ms-input-placeholder {  
-    text-align: center; 
+
+ .image-component:-ms-input-placeholder {
+    text-align: center;
  }
 
 

@@ -5,12 +5,9 @@ export default class CustomComponentBlock extends Component {
   constructor(props) {
     super(props);
     this.onChange = this.props.blockProps.onChange;
-    this.setReadOnly =this.props.blockProps.setReadOnly
-    this.setInitialReadOnly=this.props.blockProps.setInitialReadOnly
   }
 
   updateData = (data) => {
-    console.log('updateData',data)
     const editorState = this.props.blockProps.getEditorState();
     const content = editorState.getCurrentContent();
     const selection = new SelectionState({
@@ -27,15 +24,6 @@ export default class CustomComponentBlock extends Component {
       "change-block-data"
     );
     this.onChange(newEditorState);
-  }
-
-  handleFocus = () => {
-    console.log('handle focus')
-    this.setReadOnly(true);
-  }
-
-  handleBlur = () => {
-    this.setInitialReadOnly();
   }
 
   render() {

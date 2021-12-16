@@ -1,5 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-import ImageBlock from "./image-block/ImageBlock";
+import ImageBlock from "../components/image-block";
 
 export default {
   title: "Image",

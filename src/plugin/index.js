@@ -1,5 +1,4 @@
 /* eslint-disable import/no-anonymous-default-export */
-import image from "./image-plugin";
-import horizontalRule from './horizontalrule-plugin';
+import image from "./image";
 
-export default [image, horizontalRule];
+export default [ image ];

@@ -6,12 +6,10 @@ import {
 } from 'draft-js';
 
 import decoratorArray from './decorators';
-import insertDataBlock from './util/insertCustomeBlock';
+import insertDataBlock from './helpers/insertBlock';
 import CustomComponentBlock from './components/custom-block';
-import { customButtonMap, customEntityMap } from './config/buttonInputList';
+import { customEntityMap } from './config/custom-entities';
 import DEFAULT_PLUGINS from './plugin'
-
-import InputButtonList from './components/input-button-list';
 
 import './App.css';
 
@@ -22,6 +20,7 @@ class App extends Component {
     this.state = {
       editorState: EditorState.createEmpty(decorator),
     }
+    this.editorRef = React.createRef();
     this.focus = () => { this.editorRef.current.focus() }
   }
 
@@ -81,7 +80,7 @@ class App extends Component {
       return null;
     }
     const type = block.getData().toObject().type;
-    let plugin = this.getPluginByType(type);
+    const plugin = this.getPluginByType(type);
     return {
       component: CustomComponentBlock,
       editable: false,
@@ -110,17 +109,12 @@ class App extends Component {
   render() {
     return (
       <div className='editor-container'>
-        <InputButtonList
-          editorState={this.state.editorState}
-          buttonValues={customButtonMap}
-          userEventListner={this.userEventListner}
-        />
         <div id='editor'>
           <Editor
-            blockRendererFn={(block) => this.customBlockRender(block)}
+            // blockRendererFn={(block) => this.customBlockRender(block)}
             editorState={this.state.editorState}
             onChange={(editorState) => { this.updateEditor(editorState) }}
-            ref="editorRef"
+            ref={this.editorRef}
           />
         </div>
       </div>

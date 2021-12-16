@@ -1,13 +1,12 @@
 import React from 'react';
 
-import './LinkComponent.css';
+import './style.css';
 
 const LinkComponent = (props) => {
-  const { url } = props.contentState.getEntity(props.entityKey).getData();
+  const url = props.decoratedText;
   return (
     <a href={url}>
       {props.children}
-      {console.log(props)}
     </a>
   );
 };

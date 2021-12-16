@@ -1,9 +1,18 @@
-import findLinkEntities from './findLinkEntities'
-import LinkComponent from '../components/link-component'
+import findLink from './strategies/findLink';
+import LinkComponent from '../components/links';
 
-const decoratorArray = [{
-  strategy: findLinkEntities,
-  component: LinkComponent,
-}]
+import findMention from './strategies/findMention';
+import MentionsComponent from '../components/mention';
+
+const decoratorArray = [
+  {
+    strategy: findLink,
+    component: LinkComponent,
+  },
+  {
+    strategy: findMention,
+    component: MentionsComponent,
+  },
+]
 
 export default decoratorArray
