@@ -1,6 +1,6 @@
 const mentionRegex = /@[\w ]+/g;
 
-function findMention(contentBlock, callback) {
+function findMentionSuggestion(contentBlock, callback) {
   const text = contentBlock.getText();
   let matchArr, start;
   while ((matchArr = mentionRegex.exec(text)) !== null) {
@@ -9,4 +9,4 @@ function findMention(contentBlock, callback) {
   }
 }
 
-export default findMention;
+export default findMentionSuggestion;

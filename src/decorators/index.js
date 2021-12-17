@@ -1,8 +1,8 @@
-import findLink from './strategies/findLink';
-import LinkComponent from '../components/links';
+import findLink from './strategies/link';
+import LinkComponent from '../components/link';
 
-import findMention from './strategies/findMention';
-import MentionsComponent from '../components/mention';
+import findMentionSuggestion from './strategies/mention';
+import MentionsSuggestionComponent from '../components/mention/dropdown';
 
 const decoratorArray = [
   {
@@ -10,8 +10,8 @@ const decoratorArray = [
     component: LinkComponent,
   },
   {
-    strategy: findMention,
-    component: MentionsComponent,
+    strategy: findMentionSuggestion,
+    component: MentionsSuggestionComponent,
   },
 ]
 
