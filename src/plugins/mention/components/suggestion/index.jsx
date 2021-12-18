@@ -1,9 +1,9 @@
 import React from 'react';
 
-import Suggestion from '../list';
+import Suggestion from './list';
 import './style.css';
 
-import mockMentions from '../../../__mocks__/data.json';
+import mockMentions from '../../../../__mocks__/data.json';
 
 const searchText = (query) => {
   const textFilter = query.replace('@', '');
