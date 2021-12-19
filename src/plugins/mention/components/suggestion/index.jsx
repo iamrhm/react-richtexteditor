@@ -1,47 +1,31 @@
 import React from 'react';
 
-import Suggestion from './list';
 import './style.css';
+import mockMentionData from '../../../../__mocks__/data.json';
 
-import mockMentions from '../../../../__mocks__/data.json';
-
-const searchText = (query) => {
-  const textFilter = query.replace('@', '');
-  return mockMentions
-    .filter(data =>
-      data.title.toLowerCase().includes(textFilter.toLowerCase())
-    ) || [];
-}
-
-const Dropdown = (props) => {
-  const [isOpen, setOpen] = React.useState(false);
-  const query = props.decoratedText;
-
-  React.useEffect(() => {
-    setOpen(true);
-    return () => {
-      setOpen(false);
-    }
-  }, []);
-  const filteredMention = searchText(query);
+const MentionSuggestion = ({
+  handleAddMention = () => {}
+}) => {
 
   return (
-    <span>
-      <span>{props.children}</span>
+    <div>
       {
-        isOpen && filteredMention.length ? (
-          <div className="dropdown">
-            {filteredMention.map((data, index) => (
-              <React.Fragment key={index}>
-                <Suggestion {...data} />
-              </React.Fragment>
-            ))}
+        mockMentionData.map((data, index) => (
+          <div className="item" key={index}>
+            <div className="item-title" onClick={() => {
+                handleAddMention(data)
+              }}>
+              { data.title }
+            </div>
+            <div className="item-subtitle">
+              { data.subtitle }
+            </div>
           </div>
-        ) : null
+        ))
       }
-    </span>
+    </div>
   );
 }
 
 
-export default Dropdown;
+export default MentionSuggestion;

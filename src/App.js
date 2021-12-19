@@ -7,6 +7,8 @@ import {
 
 import decoratorArray from './plugins/decorator';
 import addCustomBlocks from './plugins/modifiers';
+import withConsumer from './context/withConsumer';
+import MentionSuggestion from './plugins/mention/components/suggestion';
 
 import './App.css';
 
@@ -22,12 +24,9 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-    window.addEventListener('add-mention', this.handleAddMention);
+    const { context } = this.props;
+    context.setEditorState(this.state.editorState);
     this.focus();
-  }
-
-  componentWillUnmount = () => {
-    window.removeEventListener('add-mention', this.handleAddMention);
   }
 
   logState = () => {
@@ -38,40 +37,57 @@ class App extends Component {
     return this.state.editorState;
   }
 
-  updateEditor = (editorState) => {
+  setEditorState = (editorState) => {
+    const { context } = this.props;
     this.setState({
       editorState: editorState
+    }, () => {
+      context.setEditorState(this.state.editorState);
     })
   }
 
-  handleAddMention = (e) => {
-    const mentionData = e.detail;
-    if(mentionData) {
-      const newEditorState = addCustomBlocks(
-        this.state.editorState,
-        'MENTION',
-        mentionData
-      );
-      this.updateEditor(newEditorState);
-    }
+  handleAddMention = (mentionData) => {
+    const { context } = this.props;
+    const newEditorState = addCustomBlocks(
+      this.state.editorState,
+      'MENTION',
+      mentionData
+    );
+    this.setState({
+      editorState: newEditorState
+    }, () => {
+      context.setEditorState(this.state.editorState);
+      context.setShowMention(false, null, mentionData);
+    })
   }
 
   render() {
+    const { store } = this.props.context;
+    const mentionSuggestion =
+    store.mention.show || (store.mention.elm !== null);
+
     return (
       <div className='editor-container'>
         <div id='editor'>
           <Editor
             editorState={this.state.editorState}
             onChange={(editorState) => {
-              this.updateEditor(editorState)
+              this.setEditorState(editorState)
             }}
             ref={this.editorRef}
           />
+          {
+            mentionSuggestion ? (
+              <MentionSuggestion
+                handleAddMention={this.handleAddMention}
+              />
+            ) : null
+          }
         </div>
       </div>
     );
   }
 }
 
-export default App;
+export default withConsumer(App);
 
