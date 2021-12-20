@@ -1,5 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-function getSearchTextAt(
+export function getSearchTextAt(
   blockText,
   position,
 ) {

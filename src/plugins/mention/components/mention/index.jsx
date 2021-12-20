@@ -6,19 +6,23 @@ import './style.css';
 
 const MentionComponent = (props) => {
   const { context } = props;
-  const mentionElm = React.useRef();
+  const mentionPortal = React.useRef();
 
   React.useLayoutEffect(() => {
-    context.setShowMention(true, mentionElm.current);
+    context.setShowMention(
+      true,
+      mentionPortal.current,
+      undefined,
+      props.offsetKey
+    );
     return () => {
       context.setShowMention(false, null);
     }
   }, []);
 
   return (
-    <span ref={mentionElm}>{props.children}</span>
+    <span className="mention-text" ref={mentionPortal}>{props.children}</span>
   );
 }
-
 
 export default withConsumer(MentionComponent);

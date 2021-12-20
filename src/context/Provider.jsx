@@ -9,10 +9,11 @@ class Provider extends React.Component {
       editorState: undefined,
       mention: {
         show: false,
-        elm: null,
         selectedData: undefined,
+        searchKeys: new Set(),
       }
-    }
+    };
+    this.mentionPortal = null;
   }
 
   getEditorState = () => {
@@ -20,37 +21,55 @@ class Provider extends React.Component {
   }
 
   setEditorState = (editorState) => {
-    this.setState({
+    this.setState((prevState) => ({
+      ...prevState,
       editorState: editorState
-    })
+    }));
   }
 
   setShowMention = (
     isOpen,
-    mentionElm = null,
-    selectedData = undefined
+    mentionPortal = null,
+    selectedData = undefined,
+    offsetKey = null,
   ) => {
-    this.setState({
-      mention: {
-        show: isOpen,
-        elm: mentionElm,
-        selectedData
+    this.mentionPortal = mentionPortal;
+    this.setState((prevState) => {
+      if(offsetKey) {
+        return {
+          ...prevState,
+          mention: {
+            show: isOpen,
+            searchKeys: prevState.mention.searchKeys.add(offsetKey),
+            selectedData
+          }
+        }
+      } else {
+        return {
+          ...prevState,
+          mention: {
+            show: isOpen,
+            searchKeys: prevState.mention.searchKeys,
+            selectedData
+          }
+        }
       }
     });
   }
 
   render() {
     return (
-    <EditorContext.Provider
-      value={{
-        store: this.state,
-        getEditorState: this.getEditorState,
-        setEditorState: this.setEditorState,
-        setShowMention: this.setShowMention,
-      }}
-    >
-      {this.props.children}
-    </EditorContext.Provider>
+      <EditorContext.Provider
+        value={{
+          store: this.state,
+          mentionPortal: this.mentionPortal,
+          getEditorState: this.getEditorState,
+          setEditorState: this.setEditorState,
+          setShowMention: this.setShowMention,
+        }}
+      >
+        {this.props.children}
+      </EditorContext.Provider>
     );
   }
 }
