@@ -47,7 +47,7 @@ export default function getSuggestionQuery(
   .filter(
   ({ leaf }) =>
     (anchorOffset >= leaf.start + 1) &&
-    (blockText.substr(0, 1) === '@') &&
+    (blockText.substr(leaf.start, 1) === '@') &&
     (anchorOffset <= leaf.end)
   )[0];
 
@@ -55,7 +55,11 @@ export default function getSuggestionQuery(
     return null;
   }
 
-  const searchText = blockText.substr(activeSearch.leaf.start, anchorOffset);
+  const searchText = blockText.substr(
+    activeSearch.leaf.start,
+    activeSearch.leaf.end - activeSearch.leaf.start
+  );
+
   return {
     suggestionText: searchText,
     offsetKey: activeSearch.offsetKey,
