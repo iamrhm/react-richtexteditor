@@ -1,3 +1,7 @@
+.suggestion-list-container {
+  position: absolute;
+}
+
 .item {
   background: #EBEEF5;
   padding: 10px 8px;
