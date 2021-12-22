@@ -1,9 +1,9 @@
 import mockMentionData from '../../../__mocks__/data.json';
 
-function getSuggestions(searchText) {
+function fetchSuggestions(searchText) {
   searchText = searchText.replace('@', '');
   return mockMentionData
   .filter(data => data.title.toLowerCase().includes(searchText.toLowerCase()));
 }
 
-export default getSuggestions;
+export default fetchSuggestions;

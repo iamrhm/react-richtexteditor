@@ -57,7 +57,7 @@ class App extends Component {
       editorState: newEditorState
     }, () => {
       context.setEditorState(this.state.editorState);
-      context.setShowMention(false, null, mentionData, null);
+      context.setShowMention(false, mentionData, null);
     })
   }
 

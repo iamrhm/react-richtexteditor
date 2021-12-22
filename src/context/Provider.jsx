@@ -13,7 +13,7 @@ class Provider extends React.Component {
         searchKeys: new Set(),
       }
     };
-    this.mentionPortal = null;
+    this.mentionPortal = new Map();
   }
 
   getEditorState = () => {
@@ -29,32 +29,34 @@ class Provider extends React.Component {
 
   setShowMention = (
     isOpen,
-    mentionPortal = null,
     selectedData = undefined,
     offsetKey = null,
   ) => {
-    this.mentionPortal = mentionPortal;
     this.setState((prevState) => {
-      if(offsetKey) {
-        return {
-          ...prevState,
-          mention: {
-            show: isOpen,
-            searchKeys: prevState.mention.searchKeys.add(offsetKey),
-            selectedData
-          }
-        }
-      } else {
-        return {
-          ...prevState,
-          mention: {
-            show: isOpen,
-            searchKeys: prevState.mention.searchKeys,
-            selectedData
-          }
+      const newSearchKeys = offsetKey ?
+      prevState.mention.searchKeys.add(offsetKey) :
+      prevState.mention.searchKeys;
+      return {
+        ...prevState,
+        mention: {
+          show: isOpen,
+          searchKeys: newSearchKeys,
+          selectedData
         }
       }
     });
+  }
+
+  registerMentionPortal = (element, offsetKey) => {
+    this.mentionPortal.set(element, offsetKey);
+  };
+
+  unregisterMentionPortal = (offsetKey) => {
+    this.mentionPortal.delete(offsetKey);
+  };
+
+  getMentionPortal = (offsetKey) => {
+    return this.mentionPortal.get(offsetKey);
   }
 
   render() {
@@ -66,6 +68,9 @@ class Provider extends React.Component {
           getEditorState: this.getEditorState,
           setEditorState: this.setEditorState,
           setShowMention: this.setShowMention,
+          registerMentionPortal: this.registerMentionPortal,
+          unregisterMentionPortal: this.unregisterMentionPortal,
+          getMentionPortal: this.getMentionPortal
         }}
       >
         {this.props.children}

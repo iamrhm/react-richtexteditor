@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import withConsumer from '../../../../context/withConsumer';
 import getSuggestionQuery from '../../utils/getSuggestionQuery';
-import getSuggestions from '../../utils/getSuggestions';
+import fetchSuggestions from '../../utils/fetchSuggestions';
 
 import './style.css';
 
@@ -11,61 +13,76 @@ const MentionSuggestion = ({
   handleAddMention = () => {}
 }) => {
   const {
-    store, mentionPortal, setShowMention
+    store, getMentionPortal, setShowMention
   } = context;
   const [suggestions, setSuggestions] = React.useState([]);
-  const popoverRef = React.useRef(null);
+  const activePortal = React.useRef(null);
 
-  const onQueryChange = (searchText) => {
-    const filteredSuggestions = getSuggestions(searchText);
+  const onQueryChange = (searchText, offsetKey) => {
+    const filteredSuggestions = fetchSuggestions(searchText);
     setSuggestions(filteredSuggestions);
-    setShowMention(
-      true,
-      mentionPortal
-    );
+    activePortal.current = getMentionPortal(offsetKey);
+    setShowMention(true);
   }
 
   const onEditorStateChange = React.useCallback(() => {
     if(store.editorState) {
-      const suggestionText = getSuggestionQuery(
+      const query = getSuggestionQuery(
         store.editorState,
         store.mention.searchKeys,
       );
-      if(!(suggestionText && suggestionText.length >= 4)) {
-        return setShowMention(
-          false,
-          mentionPortal
-        );
+      if(!(query && query.suggestionText.length >= 4)) {
+        return setShowMention(false);
       }
-      onQueryChange(suggestionText);
+      onQueryChange(query.suggestionText, query.offsetKey);
     }
   }, [store.editorState, store.mention]);
+
+  const getPopover = () => {
+    const showSuggestion = store.mention.show && suggestions.length && activePortal.current;
+    return (
+      <>
+        {
+          showSuggestion ? (
+            ReactDOM.createPortal(
+              (
+                <div className="suggestion-list-container">
+                  {
+                    suggestions.map((data, index) => (
+                      <div
+                        className="item"
+                        key={index}
+                        onClick={() => handleAddMention(data)}
+                      >
+                        <div className="item-title">
+                          { data.title }
+                        </div>
+                        <div className="item-subtitle">
+                          { data.subtitle }
+                        </div>
+                      </div>
+                    ))
+                  }
+                </div>
+              ),
+              activePortal.current
+            )
+          ) : null
+        }
+      </>
+    )
+  };
 
   React.useEffect(() => {
     onEditorStateChange(store.editorState);
   }, [store.editorState]);
 
-  if (store.mention.show && mentionPortal !== null && suggestions.length) {
-    return (
-      <div ref={popoverRef}>
-        {
-          suggestions.map((data, index) => (
-            <div className="item" key={index} onClick={(e) => {
-                  handleAddMention(data)
-                }}>
-              <div className="item-title">
-                { data.title }
-              </div>
-              <div className="item-subtitle">
-                { data.subtitle }
-              </div>
-            </div>
-          ))
-        }
-      </div>
-    );
-  }
-  return null;
+
+  return (
+    <>
+      {getPopover()}
+    </>
+  )
 }
 
 

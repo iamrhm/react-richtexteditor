@@ -5,23 +5,33 @@ import withConsumer from '../../../../context/withConsumer';
 import './style.css';
 
 const MentionComponent = (props) => {
-  const { context } = props;
-  const mentionPortal = React.useRef();
+  const {
+    setShowMention,
+    registerMentionPortal,
+    unregisterMentionPortal
+  } = props.context;
+  const newMentionPortal = React.useRef();
 
   React.useLayoutEffect(() => {
-    context.setShowMention(
+    setShowMention(
       true,
-      mentionPortal.current,
       undefined,
       props.offsetKey
     );
+    if(newMentionPortal.current) {
+      registerMentionPortal(
+        props.offsetKey,
+        newMentionPortal.current
+      )
+    }
     return () => {
-      context.setShowMention(false, null);
+      setShowMention(false, null);
+      unregisterMentionPortal(props.offsetKey);
     }
   }, []);
 
   return (
-    <span className="mention-text" ref={mentionPortal}>{props.children}</span>
+    <span className="mention-text" ref={newMentionPortal}>{props.children}</span>
   );
 }
 

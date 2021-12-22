@@ -25,10 +25,12 @@ export default function getSuggestionQuery(
   const searchLeaves = [...allSearchBlocks]
     .filter(data => data !== undefined)
     .filter((offsetDetail) => offsetDetail.blockKey === anchorKey)
-    .map((offsetDetail) =>
-      editorState
+    .map((offsetDetail) => ({
+        leaf: editorState
         .getBlockTree(offsetDetail.blockKey)
-        .getIn([offsetDetail.decoratorKey])
+        .getIn([offsetDetail.decoratorKey]),
+        offsetKey: Object.values(offsetDetail).join('-'),
+      })
     );
 
   if(!searchLeaves) {
@@ -41,18 +43,21 @@ export default function getSuggestionQuery(
   .getText();
 
   const activeSearch = searchLeaves
-  .filter(data => data !== undefined)
+  .filter(data => data.leaf !== undefined)
   .filter(
-  ({ start, end }) =>
-    (anchorOffset >= start + 1) &&
+  ({ leaf }) =>
+    (anchorOffset >= leaf.start + 1) &&
     (blockText.substr(0, 1) === '@') &&
-    (anchorOffset <= end)
+    (anchorOffset <= leaf.end)
   )[0];
 
   if(!activeSearch) {
     return null;
   }
 
-  const searchText = blockText.substr(activeSearch.start, anchorOffset);
-  return searchText.length >= 3 ? searchText : null;
+  const searchText = blockText.substr(activeSearch.leaf.start, anchorOffset);
+  return {
+    suggestionText: searchText,
+    offsetKey: activeSearch.offsetKey,
+  };
 }
