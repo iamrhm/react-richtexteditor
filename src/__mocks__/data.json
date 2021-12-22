@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Batman",
+    "subtitle": "I am Batman",
+    "link": "https://www.dccomics.com/characters/batman"
+  },
+  {
+    "title": "Superman",
+    "subtitle": "Protector of Metropolis",
+    "link": "https://www.dccomics.com/characters/superman"
+  },
+  {
+    "title": "Spider Man",
+    "subtitle": "With great power comes grate responsibility",
+    "link": "https://www.marvel.com/characters/spider-man-peter-parker"
+  },
+  {
+    "title": "Iron Man",
+    "subtitle": "Even dead I am the hero",
+    "link": "https://www.marvel.com/characters/iron-man-tony-stark"
+  }
+]
