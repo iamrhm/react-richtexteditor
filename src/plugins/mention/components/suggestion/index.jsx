@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import withConsumer from '../../../../context/withConsumer';
 import getSuggestionQuery from '../../utils/getSuggestionQuery';
 import fetchSuggestions from '../../utils/fetchSuggestions';
+import getPosition from '../../utils/getPosition';
 
 import './style.css';
 
@@ -39,38 +40,34 @@ const MentionSuggestion = ({
   }, [store.editorState, store.mention]);
 
   const getPopover = () => {
-    const showSuggestion = store.mention.show && suggestions.length && activePortal.current;
-    return (
-      <>
-        {
-          showSuggestion ? (
-            ReactDOM.createPortal(
-              (
-                <div className="suggestion-list-container">
-                  {
-                    suggestions.map((data, index) => (
-                      <div
-                        className="item"
-                        key={index}
-                        onClick={() => handleAddMention(data)}
-                      >
-                        <div className="item-title">
-                          { data.title }
-                        </div>
-                        <div className="item-subtitle">
-                          { data.subtitle }
-                        </div>
-                      </div>
-                    ))
-                  }
+    const showSuggestion = store.mention.show && suggestions.length;
+    if (activePortal.current && showSuggestion) {
+      const positionStyle = getPosition(activePortal.current);
+        return (
+          <div
+            className="suggestion-list-container"
+            style={{...positionStyle}}
+          >
+            {
+              suggestions.map((data, index) => (
+                <div
+                  className="item"
+                  key={index}
+                  onClick={() => handleAddMention(data)}
+                >
+                  <div className="item-title">
+                    { data.title }
+                  </div>
+                  <div className="item-subtitle">
+                    { data.subtitle }
+                  </div>
                 </div>
-              ),
-              activePortal.current
-            )
-          ) : null
-        }
-      </>
-    )
+              ))
+            }
+          </div>
+        )
+    }
+    return null;
   };
 
   React.useEffect(() => {

@@ -76,14 +76,14 @@ class App extends Component {
             }}
             ref={this.editorRef}
           />
-          {
-            mentionSuggestion ? (
-              <MentionSuggestion
-                handleAddMention={this.handleAddMention}
-              />
-            ) : null
-          }
         </div>
+        {
+          mentionSuggestion ? (
+            <MentionSuggestion
+              handleAddMention={this.handleAddMention}
+            />
+          ) : null
+        }
       </div>
     );
   }
