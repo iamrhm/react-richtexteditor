@@ -1,4 +1,4 @@
-const mentionRegex = /@[\w]+/g;
+const mentionRegex = /@[\w ]+/g;
 
 function findMentionSuggestion(contentBlock, callback) {
   const text = contentBlock.getText();
