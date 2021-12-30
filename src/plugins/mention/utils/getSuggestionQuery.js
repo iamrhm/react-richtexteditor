@@ -57,7 +57,7 @@ export default function getSuggestionQuery(
 
   const searchText = blockText.substr(
     activeSearch.leaf.start,
-    activeSearch.leaf.end - activeSearch.leaf.start
+    anchorOffset - activeSearch.leaf.start,
   );
 
   return {

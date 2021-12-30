@@ -5,7 +5,7 @@ import {
 
 import getSearchText from './utils/getSearchText';
 
-function insertMentionBlock(editorState, mentionData){
+export function insertMentionBlock(editorState, mentionData){
   const contentStateWithEntity = editorState
   .getCurrentContent()
   .createEntity(
@@ -21,11 +21,12 @@ function insertMentionBlock(editorState, mentionData){
     anchorOffset: begin,
     focusOffset: end,
   });
+
   let mentionReplacedContent = Modifier.replaceText(
     editorState.getCurrentContent(),
     mentionTextSelection,
     `@${mentionData.title}`,
-    editorState.getCurrentInlineStyle(),
+    undefined,
     entityKey
   );
 
@@ -34,6 +35,7 @@ function insertMentionBlock(editorState, mentionData){
     .getCurrentContent()
     .getBlockForKey(blockKey)
     .getLength();
+
   if (blockSize === end) {
     mentionReplacedContent = Modifier.insertText(
       mentionReplacedContent,
@@ -53,4 +55,21 @@ function insertMentionBlock(editorState, mentionData){
   );
 }
 
-export default insertMentionBlock;
+export function addMentionTrigger(editorState) {
+  const selectionState = editorState.getSelection();
+  const mentionReplacedContent = Modifier.insertText(
+    editorState.getCurrentContent(),
+    selectionState,
+    "@",
+  );
+  const newEditorState = EditorState.push(
+    editorState,
+    mentionReplacedContent,
+    'insert-characters'
+  );
+
+  return EditorState.forceSelection(
+    newEditorState,
+    mentionReplacedContent.getSelectionAfter()
+  );
+};

@@ -5,7 +5,7 @@ import {
   CompositeDecorator,
 } from 'draft-js';
 
-import decoratorArray from './plugins/decorator';
+import getDecorators from './plugins/decorator';
 import addCustomBlocks from './plugins/modifiers';
 import withConsumer from './context/withConsumer';
 import MentionSuggestion from './plugins/mention/components/suggestion';
@@ -15,7 +15,9 @@ import './App.css';
 class App extends Component {
   constructor(props) {
     super(props)
-    const decorator = new CompositeDecorator(decoratorArray);
+    const decorator = new CompositeDecorator(
+      getDecorators(props.context)
+    );
     this.state = {
       editorState: EditorState.createEmpty(decorator),
     }
@@ -61,6 +63,19 @@ class App extends Component {
     })
   }
 
+  addMentionTrigger = () => {
+    const { context } = this.props;
+    const newEditorState = addCustomBlocks(
+      this.state.editorState,
+      'ADD_MENTION_TRIGGER',
+    );
+    this.setState({
+      editorState: newEditorState
+    }, () => {
+      context.setEditorState(this.state.editorState);
+    })
+  };
+
   render() {
     const { store } = this.props.context;
     const mentionSuggestion =
@@ -84,6 +99,15 @@ class App extends Component {
             />
           ) : null
         }
+        <div className="action-panel">
+          <button
+            type="button"
+            className="button-add-asset-tag"
+            onClick={this.addMentionTrigger}
+          >
+            @
+          </button>
+        </div>
       </div>
     );
   }

@@ -1,4 +1,7 @@
-import addMentionBlock from './mention/modifier';
+import {
+  insertMentionBlock,
+  addMentionTrigger
+} from './mention/modifier';
 
 function addCustomBlocks(
   editorState,
@@ -7,7 +10,9 @@ function addCustomBlocks(
 ) {
   switch(blockType) {
     case 'MENTION':
-      return addMentionBlock(editorState, data);
+      return insertMentionBlock(editorState, data);
+    case 'ADD_MENTION_TRIGGER':
+      return addMentionTrigger(editorState);
     default:
       return;
   }

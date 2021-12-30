@@ -1,8 +1,8 @@
 /* eslint-disable import/no-anonymous-default-export */
-import mentionDecorators from './mention/decorator';
+import getMentionDecorator from './mention/decorator';
 import linkDecorators from './link/decorator';
 
-export default [
-  ...mentionDecorators,
+export default (context) => [
+  ...getMentionDecorator(context),
   ...linkDecorators
 ];

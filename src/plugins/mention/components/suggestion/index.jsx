@@ -32,6 +32,7 @@ const MentionSuggestion = ({
         store.editorState,
         store.mention.searchKeys,
       );
+      // console.log(query?.suggestionText);
       if(!(query && query.suggestionText.length >= 4)) {
         return setShowMention(false);
       }

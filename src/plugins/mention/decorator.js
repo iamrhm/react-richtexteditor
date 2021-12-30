@@ -5,13 +5,13 @@ import DecoratedMentionComponent from './components/decorated-mention';
 import mentionSuggestionStrategy from './strategies/mention-suggestion';
 import MentionSuggestionComponent from './components/mention';
 
-export default [
+export default (context) => [
   {
     strategy: mentionStrategy,
     component: DecoratedMentionComponent,
   },
   {
-    strategy: mentionSuggestionStrategy,
+    strategy: mentionSuggestionStrategy(context),
     component: MentionSuggestionComponent,
   }
 ]
