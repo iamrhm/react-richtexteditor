@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "axios": "^0.24.0",
     "draft-js": "^0.11.7",
     "linkify-it": "^3.0.3",
     "react": "^16.8.6",

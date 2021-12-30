@@ -25,7 +25,7 @@ export function insertMentionBlock(editorState, mentionData){
   let mentionReplacedContent = Modifier.replaceText(
     editorState.getCurrentContent(),
     mentionTextSelection,
-    `@${mentionData.title}`,
+    `@${mentionData.name}`,
     undefined,
     entityKey
   );

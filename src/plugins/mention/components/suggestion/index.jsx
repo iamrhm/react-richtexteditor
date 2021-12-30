@@ -6,6 +6,7 @@ import getSuggestionQuery from '../../utils/getSuggestionQuery';
 import fetchSuggestions from '../../utils/fetchSuggestions';
 import getPosition from '../../utils/getPosition';
 import CloseIcon from '../../../../components/icons/close-icon';
+import SuperHeroCard from '../../../../components/card';
 
 import './style.css';
 
@@ -24,8 +25,8 @@ const MentionSuggestion = ({
   })
   const activePortal = React.useRef(null);
 
-  const onQueryChange = (searchText, offsetKey) => {
-    const filteredSuggestions = fetchSuggestions(searchText);
+  const onQueryChange = async (searchText, offsetKey) => {
+    const filteredSuggestions = await fetchSuggestions(searchText);
     activePortal.current = getMentionPortal(offsetKey);
     setState({
       suggestions: filteredSuggestions,
@@ -83,20 +84,20 @@ const MentionSuggestion = ({
             <CloseIcon />
           </span>
         </div>
-        <div>
+        <div
+          className="item-container"
+          style={{
+            height: `${window.innerHeight - (positionStyle.top + 66)}px`
+          }}
+        >
           {
-            state.suggestions.map((data, index) => (
+            state.suggestions.map((data) => (
               <div
                 className="item"
-                key={index}
+                key={data.id}
                 onClick={() => handleAddMention(data)}
               >
-                <div className="item-title">
-                  { data.title }
-                </div>
-                <div className="item-subtitle">
-                  { data.subtitle }
-                </div>
+                <SuperHeroCard {...data} />
               </div>
             ))
           }
@@ -106,28 +107,25 @@ const MentionSuggestion = ({
   }
 
   const renderHint = () => {
-    if(state.activeOffset) {
-      return (
-        <div className="suggestion-list-container">
-          <div className="suggestion-header">
-            <span className="hint-text">
-              Type 3 or more characters to search for super heros
-            </span>
-            <span className="close-icon" onClick={onClose}>
-              <CloseIcon />
-            </span>
-          </div>
+    return (
+      <div className="suggestion-list-container">
+        <div className="suggestion-header">
+          <span className="hint-text">
+            Type 3 or more characters to search for super heros
+          </span>
+          <span className="close-icon" onClick={onClose}>
+            <CloseIcon />
+          </span>
         </div>
-      )
-    }
-    return null;
+      </div>
+    );
   }
 
   const getPopover = () => {
     const {showHint, suggestions} = state;
     const showSuggestion = store.mention.show && suggestions.length;
 
-    if (showHint && !showSuggestion && activePortal.current) {
+    if (showHint && !showSuggestion) {
       return renderHint();
     } else if (!showHint && showSuggestion && activePortal.current) {
       return renderSuggestions();

@@ -28,6 +28,11 @@
   font-size: 13px;
 }
 
+.item-container {
+  height: 100%;
+  overflow: auto;
+}
+
 .item {
   padding: 10px 16px;
   cursor: pointer;
@@ -36,13 +41,4 @@
 
 .item:hover {
   background: #EBEEF5;
-}
-
-.item-title {
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.item-subtitle {
-  font-size: 12px;
 }

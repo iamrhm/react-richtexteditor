@@ -1,9 +1,13 @@
-import mockMentionData from '../../../__mocks__/data.json';
+import { getFilteredSuperHeros } from '../../../services';
 
-function fetchSuggestions(searchText) {
-  searchText = searchText.replace('@', '');
-  return mockMentionData
-  .filter(data => data.title.toLowerCase().includes(searchText.toLowerCase()));
+async function fetchSuggestions(searchText) {
+  searchText = searchText.replace('@', '')
+  .trim().toLowerCase();
+  if (searchText) {
+    const suggestions = await getFilteredSuperHeros(searchText);
+    return suggestions;
+  }
+  return [];
 }
 
 export default fetchSuggestions;
