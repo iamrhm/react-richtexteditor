@@ -1,0 +1,41 @@
+.header {
+  display: flex;
+  padding: 20px 16px;
+  align-items: center;
+}
+.back-icon {
+  font-size: 12px;
+}
+.info {
+  display: flex;
+  align-items: center;
+  padding: 0 12px 0 16px;
+  width: 100%;
+}
+.profile-image {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #f5bd42;
+  margin-right: 12px;
+  border: 1px solid #FFFFFF;
+  box-shadow: 0px 0px 8px 0px rgb(0 0 0 / 20%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.heder-text {
+  font-size: 12px;
+  color:#2F363F;
+}
+.btn-post {
+  width: 48px;
+  background: #151E28;
+  border-radius: 4px;
+  padding: 4px 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  border: none;
+}

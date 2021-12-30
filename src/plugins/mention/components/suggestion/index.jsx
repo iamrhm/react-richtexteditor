@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 import withConsumer from '../../../../context/withConsumer';
 import getSuggestionQuery from '../../utils/getSuggestionQuery';
 import fetchSuggestions from '../../utils/fetchSuggestions';
 import getPosition from '../../utils/getPosition';
+import CloseIcon from '../../../../components/icons/close-icon';
 
 import './style.css';
 
@@ -16,13 +16,19 @@ const MentionSuggestion = ({
   const {
     store, getMentionPortal, setShowMention
   } = context;
-  const [suggestions, setSuggestions] = React.useState([]);
+  const [state, setState] = React.useState({
+    suggestions: [],
+    showHint: false,
+  })
   const activePortal = React.useRef(null);
 
   const onQueryChange = (searchText, offsetKey) => {
     const filteredSuggestions = fetchSuggestions(searchText);
-    setSuggestions(filteredSuggestions);
     activePortal.current = getMentionPortal(offsetKey);
+    setState({
+      suggestions: filteredSuggestions,
+      showHint: false,
+    });
     setShowMention(true);
   }
 
@@ -32,41 +38,81 @@ const MentionSuggestion = ({
         store.editorState,
         store.mention.searchKeys,
       );
-      // console.log(query?.suggestionText);
-      if(!(query && query.suggestionText.length >= 4)) {
-        return setShowMention(false);
+      if(!query) {
+        setState({
+          suggestions: [],
+          showHint: false,
+        });
+        setShowMention(false);
+      } else if (query.suggestionText?.length <= 3 ) {
+        setState({
+          suggestions: [],
+          showHint: true,
+        });
+        setShowMention(false);
+      } else {
+        onQueryChange(query.suggestionText, query.offsetKey);
       }
-      onQueryChange(query.suggestionText, query.offsetKey);
     }
   }, [store.editorState, store.mention]);
 
-  const getPopover = () => {
-    const showSuggestion = store.mention.show && suggestions.length;
-    if (activePortal.current && showSuggestion) {
-      const positionStyle = getPosition(activePortal.current);
-        return (
-          <div
-            className="suggestion-list-container"
-            style={{...positionStyle}}
-          >
-            {
-              suggestions.map((data, index) => (
-                <div
-                  className="item"
-                  key={index}
-                  onClick={() => handleAddMention(data)}
-                >
-                  <div className="item-title">
-                    { data.title }
-                  </div>
-                  <div className="item-subtitle">
-                    { data.subtitle }
-                  </div>
+  const renderSuggestions = () => {
+    const positionStyle = getPosition(activePortal.current);
+    return (
+      <div className="suggestion-list-container" style={{...positionStyle}}>
+        <div className="suggestion-header">
+          <span className="hero-tag">
+            Super Hero
+          </span>
+          <span className="close-icon">
+            <CloseIcon />
+          </span>
+        </div>
+        <div>
+          {
+            state.suggestions.map((data, index) => (
+              <div
+                className="item"
+                key={index}
+                onClick={() => handleAddMention(data)}
+              >
+                <div className="item-title">
+                  { data.title }
                 </div>
-              ))
-            }
-          </div>
-        )
+                <div className="item-subtitle">
+                  { data.subtitle }
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    )
+  }
+
+  const renderHint = () => {
+    return (
+      <div className="suggestion-list-container">
+        <div className="suggestion-header">
+          <span className="hint-text">
+            Type 3 or more characters to search for super heros
+          </span>
+          <span className="close-icon">
+            <CloseIcon />
+          </span>
+        </div>
+      </div>
+    )
+  }
+
+  const getPopover = () => {
+    const {showHint, suggestions} = state;
+    const showSuggestion = store.mention.show && suggestions.length;
+
+    if (showHint && !showSuggestion) {
+      return renderHint();
+    } else if (!showHint && showSuggestion && activePortal.current) {
+      return renderSuggestions();
     }
     return null;
   };

@@ -4,13 +4,13 @@ import {
   EditorState,
   CompositeDecorator,
 } from 'draft-js';
+import 'draft-js/dist/Draft.css';
 
 import getDecorators from './plugins/decorator';
 import addCustomBlocks from './plugins/modifiers';
 import withConsumer from './context/withConsumer';
 import MentionSuggestion from './plugins/mention/components/suggestion';
-
-import './App.css';
+import Header from './components/header';
 
 class App extends Component {
   constructor(props) {
@@ -82,23 +82,27 @@ class App extends Component {
     store.mention.show || (store.mention.elm !== null);
 
     return (
-      <div className='editor-container'>
-        <div id='editor'>
-          <Editor
-            editorState={this.state.editorState}
-            onChange={(editorState) => {
-              this.setEditorState(editorState)
-            }}
-            ref={this.editorRef}
-          />
+      <>
+        <Header />
+        <div className='editor-container'>
+          <div id='editor'>
+            <Editor
+              placeholder="Write something and to tag super heros use @"
+              editorState={this.state.editorState}
+              onChange={(editorState) => {
+                this.setEditorState(editorState)
+              }}
+              ref={this.editorRef}
+            />
+          </div>
         </div>
-        {
-          mentionSuggestion ? (
+        {/* {
+          mentionSuggestion ? ( */}
             <MentionSuggestion
               handleAddMention={this.handleAddMention}
             />
-          ) : null
-        }
+          {/* ) : null
+        } */}
         <div className="action-panel">
           <button
             type="button"
@@ -108,7 +112,7 @@ class App extends Component {
             @
           </button>
         </div>
-      </div>
+      </>
     );
   }
 }

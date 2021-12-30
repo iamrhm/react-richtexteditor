@@ -4,8 +4,15 @@ import './style.css';
 
 const LinkComponent = (props) => {
   const url = props.decoratedText;
+  const handleClick = () => {
+    window.open(url);
+  }
   return (
-    <a href={url}>
+    <a
+      className="external-link"
+      href={url}
+      onClick={handleClick}
+    >
       {props.children}
     </a>
   );
