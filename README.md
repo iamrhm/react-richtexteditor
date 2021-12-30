@@ -2,7 +2,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## About article-js
 This uses draft-js to create long posts.
-More coming soon
+Use node version >= 14
 
 ## Run 
   ### 'npm start'
