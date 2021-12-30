@@ -14,11 +14,13 @@ const MentionSuggestion = ({
   handleAddMention = () => {}
 }) => {
   const {
-    store, getMentionPortal, setShowMention
+    store, getMentionPortal, setShowMention,
+    unregisterMentionPortal,
   } = context;
   const [state, setState] = React.useState({
     suggestions: [],
     showHint: false,
+    activeOffset: null,
   })
   const activePortal = React.useRef(null);
 
@@ -28,9 +30,20 @@ const MentionSuggestion = ({
     setState({
       suggestions: filteredSuggestions,
       showHint: false,
+      activeOffset: offsetKey,
     });
     setShowMention(true);
   }
+
+  const onClose = () => {
+    setState({
+      suggestions: [],
+      showHint: false,
+      activeOffset: null,
+    });
+    activePortal.current = null;
+    unregisterMentionPortal(state.activeOffset)
+  };
 
   const onEditorStateChange = React.useCallback(() => {
     if(store.editorState) {
@@ -42,12 +55,14 @@ const MentionSuggestion = ({
         setState({
           suggestions: [],
           showHint: false,
+          activeOffset: null,
         });
         setShowMention(false);
       } else if (query.suggestionText?.length <= 3 ) {
         setState({
           suggestions: [],
           showHint: true,
+          activeOffset: query.offsetKey,
         });
         setShowMention(false);
       } else {
@@ -64,7 +79,7 @@ const MentionSuggestion = ({
           <span className="hero-tag">
             Super Hero
           </span>
-          <span className="close-icon">
+          <span className="close-icon" onClick={onClose}>
             <CloseIcon />
           </span>
         </div>
@@ -91,25 +106,28 @@ const MentionSuggestion = ({
   }
 
   const renderHint = () => {
-    return (
-      <div className="suggestion-list-container">
-        <div className="suggestion-header">
-          <span className="hint-text">
-            Type 3 or more characters to search for super heros
-          </span>
-          <span className="close-icon">
-            <CloseIcon />
-          </span>
+    if(state.activeOffset) {
+      return (
+        <div className="suggestion-list-container">
+          <div className="suggestion-header">
+            <span className="hint-text">
+              Type 3 or more characters to search for super heros
+            </span>
+            <span className="close-icon" onClick={onClose}>
+              <CloseIcon />
+            </span>
+          </div>
         </div>
-      </div>
-    )
+      )
+    }
+    return null;
   }
 
   const getPopover = () => {
     const {showHint, suggestions} = state;
     const showSuggestion = store.mention.show && suggestions.length;
 
-    if (showHint && !showSuggestion) {
+    if (showHint && !showSuggestion && activePortal.current) {
       return renderHint();
     } else if (!showHint && showSuggestion && activePortal.current) {
       return renderSuggestions();
@@ -124,6 +142,7 @@ const MentionSuggestion = ({
 
   return (
     <>
+      {console.log(state.activeOffset)}
       {getPopover()}
     </>
   )
