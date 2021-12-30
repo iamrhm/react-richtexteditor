@@ -18,7 +18,7 @@ export default function Header() {
       </div>
       </div>
       <div className="post-btn-container">
-        <button className="btn btn-post">
+        <button className="btn btn-post pointer">
           Post
         </button>
       </div>

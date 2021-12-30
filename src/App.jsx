@@ -96,17 +96,13 @@ class App extends Component {
             />
           </div>
         </div>
-        {/* {
-          mentionSuggestion ? ( */}
-            <MentionSuggestion
-              handleAddMention={this.handleAddMention}
-            />
-          {/* ) : null
-        } */}
+        <MentionSuggestion
+          handleAddMention={this.handleAddMention}
+        />
         <div className="action-panel">
           <button
             type="button"
-            className="button-add-asset-tag"
+            className="button-add-asset-tag pointer"
             onClick={this.addMentionTrigger}
           >
             @
