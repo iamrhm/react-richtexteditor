@@ -1,16 +1,23 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
+
+import withConsumer from '../../../context/withConsumer';
 
 import './style.css';
 
 const LinkComponent = (props) => {
-  const url = props.decoratedText;
+  const href = props.decoratedText;
+  console.log(href);
+  React.useEffect(() => {
+  }, [href]);
+
   const handleClick = () => {
-    window.open(url);
+    window.open(href);
   }
   return (
     <a
       className="external-link"
-      href={url}
+      href={href}
       onClick={handleClick}
     >
       {props.children}
@@ -18,4 +25,4 @@ const LinkComponent = (props) => {
   );
 };
 
-export default LinkComponent;
+export default withConsumer(LinkComponent);

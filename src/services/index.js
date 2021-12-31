@@ -9,7 +9,6 @@ const AxiosClient = axios.create({
 
 export const getFilteredSuperHeros = async (query) => {
   const response = await AxiosClient.get(`${GET_SUPERHERO_LIST}/${query}`);
-  console.log(response);
   if(response.status === 200) {
     const filteredSuperHeros = response.data.results.map((data) => ({
       id: data.id,

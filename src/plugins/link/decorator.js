@@ -2,9 +2,9 @@
 import linkStrategy from './strategies/link';
 import DecoratedLinkComponent from './components';
 
-export default [
+export default (context) => [
   {
-    strategy: linkStrategy,
+    strategy: linkStrategy(context),
     component: DecoratedLinkComponent,
   }
 ]

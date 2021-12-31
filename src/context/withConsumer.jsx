@@ -6,7 +6,7 @@ const withConsumer = (Component) => {
   return function WrapperComponent(props) {
     return (
         <EditorContext.Consumer>
-            {state => <Component {...props} context={state} />}
+            {context => <Component {...props} context={context} />}
         </EditorContext.Consumer>
     );
   };

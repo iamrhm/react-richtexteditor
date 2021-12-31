@@ -1,4 +1,4 @@
-const findMentionEntities = (
+const findMentionEntities = (context) =>(
   contentBlock,
   callback,
   contentState,

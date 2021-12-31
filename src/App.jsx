@@ -27,6 +27,8 @@ class App extends Component {
 
   componentDidMount = () => {
     const { context } = this.props;
+    const draftEditor = this.editorRef.current.editor;
+    draftEditor.setAttribute('data-gramm', 'false');
     context.setEditorState(this.state.editorState);
     this.focus();
   }

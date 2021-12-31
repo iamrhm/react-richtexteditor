@@ -3,13 +3,20 @@ import tlds from 'tlds';
 
 const linkify = linkifyIt().tlds(tlds);
 
-function findLink(contentBlock, callback) {
+const findLink = (context) => (contentBlock, callback) => {
   const text = contentBlock.getText();
-  let matchArr = linkify.match(text);
-  const href = matchArr && matchArr[0] ? matchArr[0].url : null;
-  if (href !== null) {
-    callback(matchArr[0].index, matchArr[0].lastIndex);
-  }
+  let matchArr = linkify.match(text) || [];
+  let href;
+  matchArr.forEach((match) => {
+    href = match ? match.url : null;
+    if (href !== null) {
+      context.setPreviewLink({
+        url: match.url,
+        text: match.text,
+      })
+      callback(match.index, match.lastIndex);
+    }
+  })
 }
 
 export default findLink;

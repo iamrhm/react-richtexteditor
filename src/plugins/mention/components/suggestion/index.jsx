@@ -140,7 +140,6 @@ const MentionSuggestion = ({
 
   return (
     <>
-      {console.log(state.activeOffset)}
       {getPopover()}
     </>
   )

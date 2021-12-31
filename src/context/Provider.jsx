@@ -11,8 +11,9 @@ class Provider extends React.Component {
         show: false,
         selectedData: undefined,
         searchKeys: new Set(),
-      }
+      },
     };
+    this.previewLink = new Map();
     this.mentionPortal = new Map();
   }
 
@@ -25,6 +26,10 @@ class Provider extends React.Component {
       ...prevState,
       editorState: editorState
     }));
+  }
+
+  setPreviewLink = (linkData) => {
+    // console.log(url);
   }
 
   setShowMention = (
@@ -70,7 +75,8 @@ class Provider extends React.Component {
           setShowMention: this.setShowMention,
           registerMentionPortal: this.registerMentionPortal,
           unregisterMentionPortal: this.unregisterMentionPortal,
-          getMentionPortal: this.getMentionPortal
+          getMentionPortal: this.getMentionPortal,
+          setPreviewLink: this.setPreviewLink
         }}
       >
         {this.props.children}
