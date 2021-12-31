@@ -77,10 +77,6 @@ class App extends Component {
   };
 
   render() {
-    const { store } = this.props.context;
-    const mentionSuggestion =
-    store.mention.show || (store.mention.elm !== null);
-
     return (
       <>
         <Header />
