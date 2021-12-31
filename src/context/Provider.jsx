@@ -11,8 +11,9 @@ class Provider extends React.Component {
         show: false,
         selectedData: undefined,
         searchKeys: new Set(),
-      }
+      },
     };
+    this.previewLink = new Map();
     this.mentionPortal = new Map();
   }
 
@@ -25,6 +26,23 @@ class Provider extends React.Component {
       ...prevState,
       editorState: editorState
     }));
+  }
+
+  setPreviewLink = ({url, offsetKey}) => {
+    this.previewLink.set(offsetKey, url);
+  };
+
+  getPreviewLink= (offsetKey) => {
+    return this.previewLink.get(offsetKey);
+  }
+
+  deletePreviewLink = (offsetKey) => {
+    this.previewLink.delete(offsetKey);
+  }
+
+  getLinkPreview = () => {
+    return [...this.previewLink]
+    .map(([name, value]) => ({ offsetKey: name, url: value }))[0];
   }
 
   setShowMention = (
@@ -47,6 +65,10 @@ class Provider extends React.Component {
     });
   }
 
+  getMentionPortal = (offsetKey) => {
+    return this.mentionPortal.get(offsetKey);
+  }
+
   registerMentionPortal = (element, offsetKey) => {
     this.mentionPortal.set(element, offsetKey);
   };
@@ -55,22 +77,21 @@ class Provider extends React.Component {
     this.mentionPortal.delete(offsetKey);
   };
 
-  getMentionPortal = (offsetKey) => {
-    return this.mentionPortal.get(offsetKey);
-  }
-
   render() {
     return (
       <EditorContext.Provider
         value={{
           store: this.state,
-          mentionPortal: this.mentionPortal,
           getEditorState: this.getEditorState,
           setEditorState: this.setEditorState,
           setShowMention: this.setShowMention,
           registerMentionPortal: this.registerMentionPortal,
           unregisterMentionPortal: this.unregisterMentionPortal,
-          getMentionPortal: this.getMentionPortal
+          getMentionPortal: this.getMentionPortal,
+          setPreviewLink: this.setPreviewLink,
+          getPreviewLink: this.getPreviewLink,
+          deletePreviewLink: this.deletePreviewLink,
+          getLinkPreview: this.getLinkPreview
         }}
       >
         {this.props.children}

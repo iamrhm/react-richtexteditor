@@ -4,5 +4,5 @@ import linkDecorators from './link/decorator';
 
 export default (context) => [
   ...getMentionDecorator(context),
-  ...linkDecorators
+  ...linkDecorators(context)
 ];

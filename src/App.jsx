@@ -11,6 +11,7 @@ import addCustomBlocks from './plugins/modifiers';
 import withConsumer from './context/withConsumer';
 import MentionSuggestion from './plugins/mention/components/suggestion';
 import Header from './components/header';
+import LinkPreview from './components/link-preview';
 
 class App extends Component {
   constructor(props) {
@@ -27,6 +28,8 @@ class App extends Component {
 
   componentDidMount = () => {
     const { context } = this.props;
+    const draftEditor = this.editorRef.current.editor;
+    draftEditor.setAttribute('data-gramm', 'false');
     context.setEditorState(this.state.editorState);
     this.focus();
   }
@@ -92,6 +95,7 @@ class App extends Component {
             />
           </div>
         </div>
+        <LinkPreview {...this.props} />
         <MentionSuggestion
           handleAddMention={this.handleAddMention}
         />

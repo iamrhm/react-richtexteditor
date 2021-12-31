@@ -7,7 +7,7 @@ import MentionSuggestionComponent from './components/mention';
 
 export default (context) => [
   {
-    strategy: mentionStrategy,
+    strategy: mentionStrategy(context),
     component: DecoratedMentionComponent,
   },
   {

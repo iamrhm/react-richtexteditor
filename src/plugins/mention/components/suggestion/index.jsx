@@ -26,14 +26,23 @@ const MentionSuggestion = ({
   const activePortal = React.useRef(null);
 
   const onQueryChange = async (searchText, offsetKey) => {
-    const filteredSuggestions = await fetchSuggestions(searchText);
+    setShowMention(true, offsetKey);
     activePortal.current = getMentionPortal(offsetKey);
-    setState({
-      suggestions: filteredSuggestions,
-      showHint: false,
-      activeOffset: offsetKey,
-    });
-    setShowMention(true);
+
+    if (searchText.length >= 4 ) {
+      const filteredSuggestions = await fetchSuggestions(searchText);
+      setState({
+        suggestions: filteredSuggestions,
+        showHint: false,
+        activeOffset: offsetKey,
+      });
+    } else {
+      setState({
+        suggestions: [],
+        showHint: true,
+        activeOffset: offsetKey,
+      });
+    }
   }
 
   const onClose = () => {
@@ -57,13 +66,6 @@ const MentionSuggestion = ({
           suggestions: [],
           showHint: false,
           activeOffset: null,
-        });
-        setShowMention(false);
-      } else if (query.suggestionText?.length <= 3 ) {
-        setState({
-          suggestions: [],
-          showHint: true,
-          activeOffset: query.offsetKey,
         });
         setShowMention(false);
       } else {
@@ -125,7 +127,7 @@ const MentionSuggestion = ({
     const {showHint, suggestions} = state;
     const showSuggestion = store.mention.show && suggestions.length;
 
-    if (showHint && !showSuggestion) {
+    if (showHint && !showSuggestion && activePortal.current) {
       return renderHint();
     } else if (!showHint && showSuggestion && activePortal.current) {
       return renderSuggestions();
@@ -140,7 +142,6 @@ const MentionSuggestion = ({
 
   return (
     <>
-      {console.log(state.activeOffset)}
       {getPopover()}
     </>
   )
