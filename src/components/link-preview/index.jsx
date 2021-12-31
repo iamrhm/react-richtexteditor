@@ -6,6 +6,7 @@ const LinkPreview = ({context}) => {
   const data = context.getLinkPreview();
 
   const fetchMetaInfo = async (url) => {
+    // eslint-disable-next-line no-unused-vars
     const urlMetaInfo = await getURLMetaInfo(url);
   };
 
