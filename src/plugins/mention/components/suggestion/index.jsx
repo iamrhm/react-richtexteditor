@@ -76,8 +76,12 @@ const MentionSuggestion = ({
 
   const renderSuggestions = () => {
     const positionStyle = getPosition(activePortal.current);
+    window.scrollTo({
+      top: positionStyle.top,
+      behavior: 'smooth'
+    });
     return (
-      <div className="suggestion-list-container" style={{...positionStyle}}>
+      <div className="suggestion-list-container" style={{top: positionStyle.bottom + 'px'}}>
         <div className="suggestion-header">
           <span className="hero-tag">
             Super Hero

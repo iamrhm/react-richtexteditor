@@ -6,12 +6,14 @@ import './style.css';
 export default function Header() {
   return (
     <div className="header">
-      <span className="back-icon">
+      <div className="back-icon">
         <BackIcon />
-      </span>
+      </div>
       <div className="info">
       <div className="profile-image">
-        🧑🏻
+        <span>
+          🧑🏻
+        </span>
       </div>
       <div className="heder-text">
         Posting on <b>Super Hero Forum</b>

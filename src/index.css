@@ -18,6 +18,7 @@ code {
   margin: 0 auto;
   background: #fff;
   position: relative;
+  overflow: hidden;
 }
 .editor-container{
   padding: 8px 16px 0 16px;
