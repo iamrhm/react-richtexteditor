@@ -1,4 +1,4 @@
-This project was bootstrapped with [Running On](https://richtext-editor.netlify.app/).
+Hop on to [richtext-editor](https://richtext-editor.netlify.app/).
 
 ## About article-js
 This uses draft-js to create RichText Editor.
