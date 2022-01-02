@@ -76,12 +76,14 @@ const MentionSuggestion = ({
 
   const renderSuggestions = () => {
     const positionStyle = getPosition(activePortal.current);
-    window.scrollTo({
-      top: positionStyle.top,
-      behavior: 'smooth'
-    });
     return (
-      <div className="suggestion-list-container" style={{top: positionStyle.bottom + 'px'}}>
+      <div
+        className="suggestion-list-container"
+        style={{
+          top: (positionStyle.bottom + 8) + 'px',
+          height: `${window.innerHeight - (positionStyle.top + 66)}px`
+        }}
+      >
         <div className="suggestion-header">
           <span className="hero-tag">
             Super Hero
@@ -91,11 +93,7 @@ const MentionSuggestion = ({
           </span>
         </div>
         <div
-          className="item-container"
-          style={{
-            height: `${window.innerHeight - (positionStyle.top + 66)}px`
-          }}
-        >
+          className="item-container">
           {
             state.suggestions.map((data) => (
               <div
@@ -113,8 +111,9 @@ const MentionSuggestion = ({
   }
 
   const renderHint = () => {
+    const positionStyle = getPosition(activePortal.current);
     return (
-      <div className="suggestion-list-container">
+      <div className="suggestion-list-container" style={{top: positionStyle.bottom + 'px'}}>
         <div className="suggestion-header">
           <span className="hint-text">
             Type 3 or more characters to search for super heros
@@ -139,10 +138,27 @@ const MentionSuggestion = ({
     return null;
   };
 
+  const handleScroll = (e) => {
+    setState({
+      suggestions: [],
+      showHint: false,
+      activeOffset: null,
+    });
+  }
+
   React.useEffect(() => {
     onEditorStateChange(store.editorState);
   }, [store.editorState]);
 
+
+  React.useEffect(() => {
+    document.querySelector('#editor')
+    .addEventListener('scroll', handleScroll)
+    return () => {
+      document.querySelector('#editor')
+      .removeEventListener('scroll', handleScroll)
+    }
+  }, []);
 
   return (
     <>

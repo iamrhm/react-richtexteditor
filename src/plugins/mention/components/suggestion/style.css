@@ -1,12 +1,11 @@
 .suggestion-list-container {
   position: absolute;
   width: 100%;
-  bottom: 0px;
   z-index: 1;
   background: #F9FAFC;
   left: 0;
+  overflow: auto;
 }
-
 .suggestion-header {
   width: calc(100% - 32px);
   display: flex;
@@ -14,7 +13,6 @@
   align-items: center;
   padding: 16px;
 }
-
 .hero-tag {
   font-size: 12px;
   padding: 4px 8px;
@@ -22,23 +20,19 @@
   border-radius: 100px;
   background: #fff;
 }
-
 .hint-text {
   color: #535B62;
   font-size: 13px;
 }
-
 .item-container {
-  height: 100%;
+  height: calc(100% - 58px);
   overflow: auto;
 }
-
 .item {
   padding: 10px 16px;
   cursor: pointer;
   font-family: 'Nunito', sans-serif;
 }
-
 .item:hover {
   background: #EBEEF5;
 }

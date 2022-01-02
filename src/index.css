@@ -5,13 +5,15 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: #b8bbbe5c;
+  height: 100vh;
 }
-
+html {
+  height: -webkit-fill-available;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
 #root{
   width: 375px;
   height: 100vh;
@@ -21,36 +23,44 @@ code {
   overflow: hidden;
 }
 .editor-container{
-  padding: 8px 16px 0 16px;
+  padding: 8px 16px 16px 16px;
   position: relative;
+  max-height: calc(100vh - 220px);
+  overflow: hidden;
 }
-
 #editor{
   font-family: 'Nunito', sans-serif;
   position: relative;
   font-size: 16px;
   color: rgba(0,0,0,.84);
   word-break: break-word;
+  max-height: calc(100vh - 220px);
+  overflow: auto;
 }
-
+@media only screen
+  and (min-device-width: 375px)
+  and (max-device-width: 812px)
+  and (-webkit-min-device-pixel-ratio: 3) {
+    #editor{
+      max-height: calc(100vh - 580px);
+    }
+}
 .action-panel {
-  position: absolute;
+  position: sticky;
   bottom: 0;
   border-top: 1px solid #E2E5E9;
   display: flex;
   width: 100%;
 }
-
 .pointer {
   cursor: pointer;
 }
-
 .button-add-asset-tag {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 18px 16px;
-  background: #FFFFFF;
+  background: #fff;
   border: none;
   font-size: 16px;
   color: #535B62;

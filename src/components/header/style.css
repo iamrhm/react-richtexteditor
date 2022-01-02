@@ -27,6 +27,11 @@
   justify-content: center;
   align-items: center;
 }
+.profile-image span {
+  top: 50%;
+  right: 50%;
+  transform: translate(0%,9%);
+}
 .heder-text {
   font-size: 12px;
   color:#2F363F;
@@ -36,7 +41,6 @@
   justify-content: center;
   align-items: center;
 }
-
 .btn-post {
   background: #151E28;
   border-radius: 4px;
