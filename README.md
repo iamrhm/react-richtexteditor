@@ -1,4 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Running On](https://richtext-editor.netlify.app/).
 
 ## About article-js
 This uses draft-js to create RichText Editor.
