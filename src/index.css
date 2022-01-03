@@ -37,12 +37,25 @@ code {
   max-height: calc(100vh - 220px);
   overflow: auto;
 }
-@media only screen
-  and (max-device-width: 812px) {
+
+
+@supports not (-webkit-touch-callout: none) {
+  @media (max-width: 812px) {
     #editor{
-      max-height: calc(100vh - 580px);
+      max-height: calc(100vh - 220px);
     }
+  }
 }
+
+/* only for iOS devices */
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: 812px) {
+    #editor{
+      max-height: calc(100vh - 550px);
+    }
+  }
+}
+
 .action-panel {
   position: sticky;
   bottom: 0;
