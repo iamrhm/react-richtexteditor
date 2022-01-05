@@ -28,6 +28,17 @@ const MentionSuggestion = ({
   const onQueryChange = async (searchText, offsetKey) => {
     setShowMention(true, offsetKey);
     activePortal.current = getMentionPortal(offsetKey);
+    const position = getPosition(activePortal.current);
+    console.log({...position})
+    if(position.top > 72) {
+      if(position.top <= 0) {
+        document.querySelector('#editor')
+        .style.transform = `translateY(-${position.top}px)`;
+      } else {
+        document.querySelector('#editor')
+        .style.transform = `translateY(-${position.top - 72}px)`;
+      }
+    }
 
     if (searchText.length >= 4 ) {
       const filteredSuggestions = await fetchSuggestions(searchText);
@@ -46,6 +57,8 @@ const MentionSuggestion = ({
   }
 
   const onClose = () => {
+    document.querySelector('#editor').parentNode
+    .style.transform = `translate(0px)`;
     setState({
       suggestions: [],
       showHint: false,
@@ -68,6 +81,8 @@ const MentionSuggestion = ({
           activeOffset: null,
         });
         setShowMention(false);
+        document.querySelector('#editor')
+        .style.transform = `translate(0px)`;
       } else {
         onQueryChange(query.suggestionText, query.offsetKey);
       }
@@ -80,8 +95,7 @@ const MentionSuggestion = ({
       <div
         className="suggestion-list-container"
         style={{
-          top: (positionStyle.bottom + 8) + 'px',
-          height: `${window.innerHeight - (positionStyle.top + 66)}px`
+          top: (positionStyle.bottom + 8) + 'px'
         }}
       >
         <div className="suggestion-header">
@@ -113,7 +127,7 @@ const MentionSuggestion = ({
   const renderHint = () => {
     const positionStyle = getPosition(activePortal.current);
     return (
-      <div className="suggestion-list-container" style={{top: positionStyle.bottom + 'px'}}>
+      <div className="suggestion-list-container-hint" style={{top: positionStyle.bottom + 'px'}}>
         <div className="suggestion-header">
           <span className="hint-text">
             Type 3 or more characters to search for super heros
@@ -138,7 +152,9 @@ const MentionSuggestion = ({
     return null;
   };
 
-  const handleScroll = (e) => {
+  const handleScrollAndClick = (e) => {
+    document.querySelector('#editor')
+    .style.transform = `translate(0px)`;
     setState({
       suggestions: [],
       showHint: false,
@@ -152,11 +168,13 @@ const MentionSuggestion = ({
 
 
   React.useEffect(() => {
-    document.querySelector('#editor')
-    .addEventListener('scroll', handleScroll)
+    const editor = document.querySelector('#editor').parentNode;
+    editor.addEventListener('scroll', handleScrollAndClick);
+    editor.addEventListener('click', handleScrollAndClick)
     return () => {
-      document.querySelector('#editor')
-      .removeEventListener('scroll', handleScroll)
+      const editor = document.querySelector('#editor').parentNode;
+      editor.removeEventListener('scroll', handleScrollAndClick);
+      editor.removeEventListener('click', handleScrollAndClick);
     }
   }, []);
 

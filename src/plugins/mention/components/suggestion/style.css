@@ -1,5 +1,13 @@
-.suggestion-list-container {
+.suggestion-list-container-hint {
   position: absolute;
+  width: 100%;
+  z-index: 1;
+  background: #F9FAFC;
+  left: 0;
+}
+.suggestion-list-container {
+  position: fixed;
+  bottom: 0;
   width: 100%;
   z-index: 1;
   background: #F9FAFC;

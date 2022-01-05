@@ -81,7 +81,7 @@ class App extends Component {
 
   render() {
     return (
-      <>
+      <div className="app-container">
         <Header />
         <div className='editor-container'>
           <div id='editor'>
@@ -108,7 +108,7 @@ class App extends Component {
             @
           </button>
         </div>
-      </>
+      </div>
     );
   }
 }

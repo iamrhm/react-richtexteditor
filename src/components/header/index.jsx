@@ -5,7 +5,7 @@ import './style.css';
 
 export default function Header() {
   return (
-    <div className="header">
+    <header className="header">
       <div className="back-icon">
         <BackIcon />
       </div>
@@ -24,6 +24,6 @@ export default function Header() {
           Post
         </button>
       </div>
-    </div>
+    </header>
   )
 }
