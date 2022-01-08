@@ -2,7 +2,7 @@ import React from 'react';
 
 import withConsumer from '../../../../context/withConsumer';
 
-import './style.css';
+import './style.module.css';
 
 function MentionLink(props) {
   const {contentState, entityKey, children} = props;

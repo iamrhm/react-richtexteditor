@@ -3,7 +3,7 @@ import React from 'react';
 
 import withConsumer from '../../../../context/withConsumer';
 
-import './style.css';
+import './style.module.css';
 
 const MentionComponent = (props) => {
   const {

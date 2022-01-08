@@ -8,7 +8,7 @@ import getPosition from '../../utils/getPosition';
 import CloseIcon from '../../../../components/icons/close-icon';
 import SuperHeroCard from '../../../../components/card';
 
-import './style.css';
+import './style.module.css';
 
 const MentionSuggestion = ({
   context,
@@ -17,12 +17,12 @@ const MentionSuggestion = ({
   const {
     store, getMentionPortal, setShowMention,
     unregisterMentionPortal,
-  } = context;
+  } = context || {};
   const [state, setState] = React.useState({
     suggestions: [],
     showHint: false,
     activeOffset: null,
-  })
+  });
   const activePortal = React.useRef(null);
 
   const onQueryChange = async (searchText, offsetKey) => {
@@ -69,7 +69,7 @@ const MentionSuggestion = ({
   };
 
   const onEditorStateChange = React.useCallback(() => {
-    if(store.editorState) {
+    if((store||{}).editorState) {
       const query = getSuggestionQuery(
         store.editorState,
         store.mention.searchKeys,
@@ -87,7 +87,7 @@ const MentionSuggestion = ({
         onQueryChange(query.suggestionText, query.offsetKey);
       }
     }
-  }, [store.editorState, store.mention]);
+  }, [(store||{}).editorState, (store||{}).mention]);
 
   const renderSuggestions = () => {
     const positionStyle = getPosition(activePortal.current);
@@ -142,7 +142,7 @@ const MentionSuggestion = ({
 
   const getPopover = () => {
     const {showHint, suggestions} = state;
-    const showSuggestion = store.mention.show && suggestions.length;
+    const showSuggestion = ((store||{}).mention||{}).show && suggestions.length;
 
     if (showHint && !showSuggestion && activePortal.current) {
       return renderHint();
@@ -164,7 +164,7 @@ const MentionSuggestion = ({
 
   React.useEffect(() => {
     onEditorStateChange(store.editorState);
-  }, [store.editorState]);
+  }, [(store||{}).editorState]);
 
 
   React.useEffect(() => {

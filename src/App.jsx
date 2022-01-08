@@ -10,9 +10,7 @@ import getDecorators from './plugins/decorator';
 import addCustomBlocks from './plugins/modifiers';
 import withConsumer from './context/withConsumer';
 import MentionSuggestion from './plugins/mention/components/suggestion';
-import Header from './components/header';
-import LinkPreview from './components/link-preview';
-
+import './style.module.css'
 class App extends Component {
   constructor(props) {
     super(props)
@@ -81,8 +79,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="app-container">
-        <Header />
+      <>
         <div className='editor-container'>
           <div id='editor'>
             <Editor
@@ -95,7 +92,6 @@ class App extends Component {
             />
           </div>
         </div>
-        <LinkPreview {...this.props} />
         <MentionSuggestion
           handleAddMention={this.handleAddMention}
         />
@@ -108,7 +104,7 @@ class App extends Component {
             @
           </button>
         </div>
-      </div>
+      </>
     );
   }
 }

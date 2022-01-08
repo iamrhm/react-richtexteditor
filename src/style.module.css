@@ -1,31 +1,3 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Nunito', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-#root{
-  width: 375px;
-  height: 100%;
-  margin: 0 auto;
-  background: #fff;
-  position: relative;
-  overflow: hidden;
-}
-.app-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-  overscroll-behavior-y: contain;
-}
 .editor-container {
   padding: 8px 16px 16px 16px;
   position: relative;

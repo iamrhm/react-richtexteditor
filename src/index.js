@@ -1,14 +1,11 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Provider from './context/Provider';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import Editor from './App';
 
-import './index.css';
-
-ReactDOM.render(
-  <Provider>
-    <App />
-  </Provider>,
-  document.getElementById('root'));
-serviceWorker.unregister();
+export default function () {
+  return (
+    <Provider>
+      <Editor />
+    </Provider>
+  )
+}

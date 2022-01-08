@@ -5,7 +5,7 @@ import tlds from 'tlds';
 
 import withConsumer from '../../../context/withConsumer';
 
-import './style.css';
+import './style.module.css';
 
 const LinkComponent = (props) => {
   const {context, decoratedText} = props;

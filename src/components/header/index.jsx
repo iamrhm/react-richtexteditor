@@ -1,7 +1,7 @@
 import React from 'react'
 
 import BackIcon from '../icons/back-icon';
-import './style.css';
+import './style.module.css';
 
 export default function Header() {
   return (
