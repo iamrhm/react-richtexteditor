@@ -15,13 +15,13 @@ const LinkComponent = (props) => {
   React.useEffect(() => {
     const matchArr = linkify.match(decoratedText);
     const href = matchArr && matchArr[0] ? matchArr[0].url : null;
-    context.setPreviewLink({
+    context.addNewLink({
       url: href,
       offsetKey: props.offsetKey,
     });
     setUrl(href);
     return () => {
-      context.deletePreviewLink(decoratedText)
+      context.deleteLink(decoratedText)
     }
   }, [decoratedText]);
 

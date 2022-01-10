@@ -7,6 +7,7 @@ class Provider extends React.Component {
     super(props)
     this.state = {
       editorState: undefined,
+      trigger: props.trigger || '@',
       mention: {
         show: false,
         selectedData: undefined,
@@ -25,24 +26,23 @@ class Provider extends React.Component {
     this.setState((prevState) => ({
       ...prevState,
       editorState: editorState
-    }));
+    }), () => {
+      this.props.setEditorState(this.state.editorState);
+    });
   }
 
-  setPreviewLink = ({url, offsetKey}) => {
+  addNewLink = ({url, offsetKey}) => {
     this.previewLink.set(offsetKey, url);
+    const firstLink = [...this.previewLink]
+    .map(([name, value]) => ({ offsetKey: name, url: value }))[0];
+    this.props.setPreviewLink(firstLink);
   };
 
-  getPreviewLink= (offsetKey) => {
-    return this.previewLink.get(offsetKey);
-  }
-
-  deletePreviewLink = (offsetKey) => {
+  deleteLink = (offsetKey) => {
     this.previewLink.delete(offsetKey);
-  }
-
-  getLinkPreview = () => {
-    return [...this.previewLink]
+    const firstLink = [...this.previewLink]
     .map(([name, value]) => ({ offsetKey: name, url: value }))[0];
+    this.props.setPreviewLink(firstLink);
   }
 
   setShowMention = (
@@ -88,10 +88,8 @@ class Provider extends React.Component {
           registerMentionPortal: this.registerMentionPortal,
           unregisterMentionPortal: this.unregisterMentionPortal,
           getMentionPortal: this.getMentionPortal,
-          setPreviewLink: this.setPreviewLink,
-          getPreviewLink: this.getPreviewLink,
-          deletePreviewLink: this.deletePreviewLink,
-          getLinkPreview: this.getLinkPreview
+          addNewLink: this.addNewLink,
+          deleteLink: this.deleteLink,
         }}
       >
         {this.props.children}

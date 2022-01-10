@@ -10,6 +10,7 @@ const decodeOffsetKey = (offsetKey) => {
 export default function getSuggestionQuery(
   editorState,
   searchKeys,
+  trigger = '@'
 ) {
   const selection = editorState.getSelection();
   const anchorKey = selection.getAnchorKey();
@@ -45,10 +46,11 @@ export default function getSuggestionQuery(
   const activeSearch = searchLeaves
   .filter(data => data.leaf !== undefined)
   .filter(
-  ({ leaf }) =>
-    (anchorOffset >= leaf.start + 1) &&
-    (blockText.substr(leaf.start, 1) === '@') &&
+  ({ leaf }) => {
+    return (anchorOffset >= leaf.start + trigger.length) &&
+    (blockText.substr(leaf.start, trigger.length) === trigger) &&
     (anchorOffset <= leaf.end)
+  }
   )[0];
 
   if(!activeSearch) {

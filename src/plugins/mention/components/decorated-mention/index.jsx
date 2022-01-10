@@ -8,7 +8,7 @@ function MentionLink(props) {
   const {contentState, entityKey, children} = props;
   const mention = contentState.getEntity(entityKey).getData();
   const handleClick = () => {
-    window.open(mention.image);
+    // window.open(mention.image);
   }
   return (
     <a
