@@ -14,7 +14,7 @@ class Provider extends React.Component {
         searchKeys: new Set(),
       },
     };
-    this.previewLink = new Map();
+    this.previewLinks = new Map();
     this.mentionPortal = new Map();
   }
 
@@ -32,17 +32,11 @@ class Provider extends React.Component {
   }
 
   addNewLink = ({url, offsetKey}) => {
-    this.previewLink.set(offsetKey, url);
-    const firstLink = [...this.previewLink]
-    .map(([name, value]) => ({ offsetKey: name, url: value }))[0];
-    this.props.setPreviewLink(firstLink);
+    this.props.setPreviewLink('add', {url, offsetKey});
   };
 
   deleteLink = (offsetKey) => {
-    this.previewLink.delete(offsetKey);
-    const firstLink = [...this.previewLink]
-    .map(([name, value]) => ({ offsetKey: name, url: value }))[0];
-    this.props.setPreviewLink(firstLink);
+    this.props.setPreviewLink('delete', { offsetKey });
   }
 
   setShowMention = (
