@@ -31,7 +31,7 @@ export function insertMentionBlock(editorState, data){
     editorState.getCurrentContent(),
     mentionTextSelection,
     `${trigger}${mention.name}`,
-    undefined,
+    editorState.getCurrentInlineStyle(),
     entityKey
   );
 

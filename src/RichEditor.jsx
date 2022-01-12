@@ -69,7 +69,8 @@ class RichEditor extends Component {
     }, () => {
       context.setEditorState(this.state.editorState);
       context.setShowMention(false, mentionData, null);
-    })
+    });
+    this.props.addMentionCb(mentionData);
   }
 
   addMentionTrigger = () => {

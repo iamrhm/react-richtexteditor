@@ -17,6 +17,7 @@ function Index(
     addTriggerAfterCb: () => {},
     setPreviewLink: () => {},
     onFocusCb: () => {},
+    addMentionCb: () => {}
   }
 ) {
   return (
