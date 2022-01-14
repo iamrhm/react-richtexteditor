@@ -5,17 +5,22 @@ import {
 
 import getSearchText from './utils/getSearchText';
 
-export function insertMentionBlock(editorState, mentionData){
+export function insertMentionBlock(editorState, data){
+  const { mention, trigger = '@'} = data;
   const contentStateWithEntity = editorState
   .getCurrentContent()
   .createEntity(
     'MENTION',
     'IMMUTABLE',
-    mentionData
+    mention
   );
   const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
   const selectionState = editorState.getSelection();
-  const { begin, end } = getSearchText(editorState, selectionState);
+  const { begin, end } = getSearchText(
+    editorState,
+    selectionState,
+    trigger
+  );
 
   const mentionTextSelection = selectionState.merge({
     anchorOffset: begin,
@@ -25,8 +30,8 @@ export function insertMentionBlock(editorState, mentionData){
   let mentionReplacedContent = Modifier.replaceText(
     editorState.getCurrentContent(),
     mentionTextSelection,
-    `@${mentionData.name}`,
-    undefined,
+    `${trigger}${mention.name}`,
+    editorState.getCurrentInlineStyle(),
     entityKey
   );
 
@@ -55,12 +60,12 @@ export function insertMentionBlock(editorState, mentionData){
   );
 }
 
-export function addMentionTrigger(editorState) {
+export function addMentionTrigger(editorState, trigger) {
   const selectionState = editorState.getSelection();
   const mentionReplacedContent = Modifier.insertText(
     editorState.getCurrentContent(),
     selectionState,
-    "@",
+    trigger,
   );
   const newEditorState = EditorState.push(
     editorState,

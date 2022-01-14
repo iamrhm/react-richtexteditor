@@ -1,7 +1,9 @@
 export default function getPosition(elm) {
-  const { bottom, top } = elm.getBoundingClientRect();
+  const { bottom, top, height } = elm.getBoundingClientRect();
   return {
     bottom: bottom,
-    top: top - 24
+    top: top,
+    height: height,
+    elm,
   }
 }

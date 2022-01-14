@@ -1,14 +1,34 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import Provider from './context/Provider';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import RichEditor from './RichEditor';
 
-import './index.css';
+function Index(
+  props = {
+    setTrigger: false,
+    trigger: '@',
+    editorContainerRef: {},
+    setEditorState: () => {},
+    fetchSuggestions: () => ({
+      suggestion: [],
+      showHint: false,
+    }),
+    renderSuggestions: () => null,
+    renderHint: () => null,
+    addTriggerAfterCb: () => {},
+    setPreviewLink: () => {},
+    onFocusCb: () => {},
+    addMentionCb: () => {}
+  }
+) {
+  return (
+    <Provider {...props}>
+      <RichEditor
+        {...props}
+      />
+    </Provider>
+  )
+}
 
-ReactDOM.render(
-  <Provider>
-    <App />
-  </Provider>,
-  document.getElementById('root'));
-serviceWorker.unregister();
+export default React.forwardRef((props, ref) => <Index
+  editorContainerRef={ref} {...props}
+/>);

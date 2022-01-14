@@ -12,7 +12,7 @@ function addCustomBlocks(
     case 'MENTION':
       return insertMentionBlock(editorState, data);
     case 'ADD_MENTION_TRIGGER':
-      return addMentionTrigger(editorState);
+      return addMentionTrigger(editorState, data);
     default:
       return;
   }

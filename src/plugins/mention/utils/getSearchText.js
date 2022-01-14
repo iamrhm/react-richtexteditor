@@ -2,9 +2,10 @@
 export function getSearchTextAt(
   blockText,
   position,
+  trigger
 ) {
   const str = blockText.substr(0, position);
-  const TRIGGER_REGEX = new RegExp(`(\\s|^)(@)`, 'g');
+  const TRIGGER_REGEX = new RegExp(`(\\s|^)(${trigger})`, 'g');
   const matches = str.matchAll(TRIGGER_REGEX);
   let triggerStartIndex = 0;
   let valueStartIndex = 0;
@@ -26,11 +27,12 @@ export function getSearchTextAt(
 export default (
   editorState,
   selection,
+  trigger,
 ) => {
   const anchorKey = selection.getAnchorKey();
   const anchorOffset = selection.getAnchorOffset();
   const currentContent = editorState.getCurrentContent();
   const currentBlock = currentContent.getBlockForKey(anchorKey);
   const blockText = currentBlock.getText();
-  return getSearchTextAt(blockText, anchorOffset);
+  return getSearchTextAt(blockText, anchorOffset, trigger);
 };
