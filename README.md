@@ -1,12 +1,12 @@
-Hop on to [richtext-editor](https://richtext-editor.netlify.app/).
+## About Rich Text Editor
+- This uses draft-js under the hood.
+- A package to integrate your RichTextEditor input field 
+- You will have custom control over triggers for mentions
+- Have more control towards rendering suggestions for mention
+- Add your logic to fetch the mentioned data
+- Add links also get the preview link meta feature
 
-## About article-js
-This uses draft-js to create RichText Editor.
-
-## Run 
-  ### 'npm start'
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Coming Soon
+- Image addition 
 
 
