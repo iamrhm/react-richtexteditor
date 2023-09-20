@@ -1,5 +1,7 @@
 /* eslint-disable no-cond-assign */
 import { ContentBlock } from 'draft-js';
+import { IEditorContext } from '@packages/types';
+
 import defaultTagRegExp from '../../../constants/defaultTagRegExp';
 
 function getTagRegex(triggers: Array<string>): Array<RegExp> {

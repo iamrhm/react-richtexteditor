@@ -1,10 +1,11 @@
 import React from 'react';
 import { EditorState } from 'draft-js';
+import { IEditorContext, IEditorProviderState, IEditorProps, IEntityInfo } from '@packages/types';
 
 export const EditorContext = React.createContext<IEditorContext | null>(null);
 
-class Provider extends React.Component<IEditorProps, IEditorProviderState> {
-  constructor(props: IEditorProps) {
+class Provider extends React.Component<Omit<IEditorProps, 'editorContainerRef'>, IEditorProviderState> {
+  constructor(props: Omit<IEditorProps, 'editorContainerRef'>) {
     super(props);
     this.state = {
       editorState: null,

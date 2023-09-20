@@ -4,6 +4,8 @@ import {
   EditorState,
   CompositeDecorator,
 } from 'draft-js';
+import { IEditorProps, IEditorContext, IEntityInfo } from '@packages/types';
+import 'draft-js/dist/Draft.css';
 
 import getDecorators from './plugins/decorator';
 import addCustomBlocks from './plugins/modifiers';

@@ -1,4 +1,5 @@
 import { DraftDecorator } from 'draft-js';
+import { IEditorContext } from '@packages/types';
 
 import tagStrategy from './strategies/tagStrategy';
 import DecoratedTag from './components/DecoratedTag';

@@ -1,6 +1,7 @@
 import React from 'react';
 import linkifyIt from 'linkify-it';
 import tlds from 'tlds';
+import { IEditorContext, IEditorProps } from '@packages/types';
 
 import withConsumer from '../../../context/withConsumer';
 import useDebounce from '../../../libs/hooks/useDebounce';

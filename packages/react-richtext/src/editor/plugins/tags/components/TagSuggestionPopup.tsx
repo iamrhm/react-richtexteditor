@@ -1,6 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-empty-function */
 import React from 'react';
+import { IEditorProps, IEditorContext, IEntityInfo } from '@packages/types';
 
 import withConsumer from '../../../context/withConsumer';
 import getSuggestionQuery from '../utils/getSuggestionQuery';
