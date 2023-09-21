@@ -1,5 +1,4 @@
 import React from 'react';
-import { IEditorProps } from '@packages/types';
 
 import Provider from './editor/context/Provider';
 import RichEditor from './editor/RichEditor';

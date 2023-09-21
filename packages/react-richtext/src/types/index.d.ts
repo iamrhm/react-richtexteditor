@@ -1,36 +1,34 @@
-import { EditorState } from "draft-js";
+declare type ILinkType = 'url';
 
-export type ILinkType = 'url';
-
-export interface IEntityInfo extends object {
+declare interface IEntityInfo extends object {
   viewText: string;
   url?: string
 }
 
-export interface IEntity {
+declare interface IEntity {
   id: string;
   type: ILinkType | string;
   info: IEntityInfo;
 }
 
-export type IEntityMap = {
+declare type IEntityMap = {
   [key: string]: IEntity;
 }
 
 /* parsed data types */
-export interface IParsedRichData {
+declare interface IParsedRichData {
   body: string[];
   richContent: IEntityMap;
 }
 
 /* parsed data to render UI */
-export interface IRichShaveFormat {
+declare interface IRichShaveFormat {
   body: string[];
   richContent: IEntityMap;
   linkMetaInfo: object;
 }
 
-export interface IRenderHint {
+declare interface IRenderHint {
   (
     { bottom, top, left }: { bottom: number; top: number; left: number; },
     currentTriggerKey: string,
@@ -39,7 +37,7 @@ export interface IRenderHint {
   ): JSX.Element;
 }
 
-export interface IRenderSuggestions {
+declare interface IRenderSuggestions {
   (
     { bottom, top, left }: { bottom: number; top: number; left: number; },
     suggestions: Array<IEntityInfo>,
@@ -50,26 +48,26 @@ export interface IRenderSuggestions {
   ): JSX.Element
 }
 
-export interface IFetchSuggestions {
+declare interface IFetchSuggestions {
   (searchText: string, triggerKey: string): Promise<({
     suggestions: Array<IEntityInfo>,
     showHint: boolean,
   })>
 }
 
-export interface IHandleLinks {
+declare interface IHandleLinks {
   (
     type: 'add' | 'delete',
     data: { meta: IEntityInfo, offsetKey: string }
   ): void
 }
 
-export interface IHandleEntitiesCb {
+declare interface IHandleEntitiesCb {
   (entityData: IEntityInfo, triggerKey: string): void
 }
 
 /* editor component & context, props/state types */
-export interface IEditorProps {
+declare interface IEditorProps {
   isTriggerInserted: boolean;
   possibleTriggerKeys: Array<string>;
   placeholder: string;
@@ -90,7 +88,7 @@ export interface IEditorProps {
   onFocusCb: () => void;
 }
 
-export interface IEditorProviderState {
+declare interface IEditorProviderState {
   editorState: EditorState;
   possibleTriggerKeys:  Array<string>;
   tagState: {
@@ -99,7 +97,7 @@ export interface IEditorProviderState {
   };
 }
 
-export interface IEditorContext {
+declare interface IEditorContext {
   store: IEditorProviderState;
 
   getEditorState: () => void;
@@ -115,4 +113,5 @@ export interface IEditorContext {
   deleteLink: (offsetKey: string) => void;
 }
 
-export interface IEditorState extends EditorState {};
+declare interface IEditorState extends EditorState {}
+

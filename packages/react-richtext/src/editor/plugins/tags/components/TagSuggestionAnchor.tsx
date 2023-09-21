@@ -1,6 +1,5 @@
 /* eslint-disable react-refresh/only-export-components */
 import React from 'react';
-import { IEditorContext } from '@packages/types';
 
 import withConsumer from '../../../context/withConsumer';
 
