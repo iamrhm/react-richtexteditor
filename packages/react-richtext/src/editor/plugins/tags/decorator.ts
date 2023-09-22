@@ -5,6 +5,7 @@ import DecoratedTag from './components/DecoratedTag';
 
 import tagsSuggestionStrategy from './strategies/tagsSuggestionStrategy';
 import TagSuggestionAnchor from './components/TagSuggestionAnchor';
+import { IEditorContext } from '../../../types';
 
 export default (context: IEditorContext): Array<DraftDecorator> => [
   {

@@ -1,11 +1,13 @@
 {
   "name": "@packages/react-richtext",
-  "version": "0.0.0",
-  "type": "module",
-  "main": "./src/index.tsx",
+  "version": "1.0.6",
+
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "rm -rf dist && tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
@@ -14,7 +16,8 @@
     "linkify-it": "^4.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "tlds": "^1.242.0"
+    "tlds": "^1.242.0",
+    "vite-plugin-dts": "^3.5.4"
   },
   "devDependencies": {
     "@types/draft-js": "^0.11.12",

@@ -4,6 +4,7 @@ import tlds from 'tlds';
 
 import withConsumer from '../../../context/withConsumer';
 import useDebounce from '../../../libs/hooks/useDebounce';
+import { IEditorContext, IEditorProps } from '../../../../types';
 
 interface IProps extends IEditorProps {
   context: IEditorContext;

@@ -11,6 +11,7 @@ import addCustomBlocks from './plugins/modifiers';
 import withConsumer from './context/withConsumer';
 
 import TagSuggestionPopup from './plugins/tags/components/TagSuggestionPopup';
+import { IEditorContext, IEditorProps, IEntityInfo } from '../types';
 
 interface IProps extends IEditorProps {
   context?: IEditorContext;
@@ -120,11 +121,11 @@ class RichEditor extends Component<IProps, IState> {
       ref: this.props.editorContainerRef,
       handleAddEntity: this.handleAddEntity,
     };
-    const typographyClass = this.props.fontStyleClass || '';
+    const styleClass = this.props.styleClass || '';
 
     return (
       <>
-        <div className={`editor-container ${typographyClass}`}>
+        <div className={`editor-container ${styleClass}`}>
           <div
             id="editor"
             ref={this.editorContainer}

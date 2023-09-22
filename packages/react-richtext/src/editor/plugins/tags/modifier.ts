@@ -4,6 +4,7 @@ import {
 } from 'draft-js';
 
 import getSearchText from './utils/getSearchText';
+import { IEntityInfo } from '../../../types';
 
 export interface IAddEntity {
   editorState: EditorState,

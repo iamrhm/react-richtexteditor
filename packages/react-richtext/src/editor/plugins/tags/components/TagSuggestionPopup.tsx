@@ -6,6 +6,7 @@ import withConsumer from '../../../context/withConsumer';
 import getSuggestionQuery from '../utils/getSuggestionQuery';
 import getPosition from '../utils/getPosition';
 import useForwardedRef from '../../../libs/hooks/useForwardedRef';
+import { IEditorContext, IEditorProps, IEntityInfo } from '../../../../types';
 
 interface IProps extends IEditorProps {
   context?: IEditorContext;

@@ -2,6 +2,7 @@
 import { ContentBlock } from 'draft-js';
 
 import defaultTagRegExp from '../../../constants/defaultTagRegExp';
+import { IEditorContext } from '../../../../types';
 
 function getTagRegex(triggers: Array<string>): Array<RegExp> {
   return triggers.map(trigger => new RegExp(`${trigger}(${defaultTagRegExp}|\\s)*`, 'g'));

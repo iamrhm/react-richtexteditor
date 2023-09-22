@@ -2,6 +2,7 @@
 import React from 'react';
 
 import withConsumer from '../../../context/withConsumer';
+import { IEditorContext } from '../../../../types';
 
 interface IProps {
   context: IEditorContext;

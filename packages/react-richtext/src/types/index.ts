@@ -1,34 +1,36 @@
-declare type ILinkType = 'url';
+import { EditorState } from "draft-js";
 
-declare interface IEntityInfo extends object {
+export type ILinkType = 'url';
+
+export type IEntityInfo = object & {
   viewText: string;
   url?: string
 }
 
-declare interface IEntity {
+export interface IEntity {
   id: string;
   type: ILinkType | string;
   info: IEntityInfo;
 }
 
-declare type IEntityMap = {
+export type IEntityMap = {
   [key: string]: IEntity;
 }
 
 /* parsed data types */
-declare interface IParsedRichData {
+export interface IParsedRichData {
   body: string[];
   richContent: IEntityMap;
 }
 
 /* parsed data to render UI */
-declare interface IRichShaveFormat {
+export interface IRichShaveFormat {
   body: string[];
   richContent: IEntityMap;
   linkMetaInfo: object;
 }
 
-declare interface IRenderHint {
+export interface IRenderHint {
   (
     { bottom, top, left }: { bottom: number; top: number; left: number; },
     currentTriggerKey: string,
@@ -37,7 +39,7 @@ declare interface IRenderHint {
   ): JSX.Element;
 }
 
-declare interface IRenderSuggestions {
+export interface IRenderSuggestions {
   (
     { bottom, top, left }: { bottom: number; top: number; left: number; },
     suggestions: Array<IEntityInfo>,
@@ -48,33 +50,33 @@ declare interface IRenderSuggestions {
   ): JSX.Element
 }
 
-declare interface IFetchSuggestions {
+export interface IFetchSuggestions {
   (searchText: string, triggerKey: string): Promise<({
     suggestions: Array<IEntityInfo>,
     showHint: boolean,
   })>
 }
 
-declare interface IHandleLinks {
+export interface IHandleLinks {
   (
     type: 'add' | 'delete',
     data: { meta: IEntityInfo, offsetKey: string }
   ): void
 }
 
-declare interface IHandleEntitiesCb {
+export interface IHandleEntitiesCb {
   (entityData: IEntityInfo, triggerKey: string): void
 }
 
 /* editor component & context, props/state types */
-declare interface IEditorProps {
+export interface IEditorProps {
   isTriggerInserted: boolean;
   possibleTriggerKeys: Array<string>;
   placeholder: string;
   editorContainerRef: React.MutableRefObject<HTMLDivElement>;
 
   children?: React.ReactNode;
-  fontStyleClass?: string;
+  styleClass?: string;
   initialState?: EditorState;
   externalTriggerKey?: string;
 
@@ -88,7 +90,7 @@ declare interface IEditorProps {
   onFocusCb: () => void;
 }
 
-declare interface IEditorProviderState {
+export interface IEditorProviderState {
   editorState: EditorState;
   possibleTriggerKeys:  Array<string>;
   tagState: {
@@ -97,7 +99,7 @@ declare interface IEditorProviderState {
   };
 }
 
-declare interface IEditorContext {
+export interface IEditorContext {
   store: IEditorProviderState;
 
   getEditorState: () => void;
@@ -113,5 +115,5 @@ declare interface IEditorContext {
   deleteLink: (offsetKey: string) => void;
 }
 
-declare interface IEditorState extends EditorState {}
+export interface IEditorState extends EditorState {}
 

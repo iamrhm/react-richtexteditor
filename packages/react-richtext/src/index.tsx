@@ -3,8 +3,9 @@ import React from 'react';
 import Provider from './editor/context/Provider';
 import RichEditor from './editor/RichEditor';
 import useForwardedRef from './editor/libs/hooks/useForwardedRef';
+import * as Types from './types';
 
-export default React.forwardRef<HTMLDivElement, Omit<IEditorProps, 'editorContainerRef'>>(
+export default React.forwardRef<HTMLDivElement, Omit<Types.IEditorProps, 'editorContainerRef'>>(
   (props, ref): JSX.Element => {
   const innerRef = useForwardedRef(ref);
   return (
@@ -16,3 +17,7 @@ export default React.forwardRef<HTMLDivElement, Omit<IEditorProps, 'editorContai
     </Provider>
   )
 });
+
+export  type {
+  IEntityInfo, IRenderSuggestions, IRenderHint, IEditorState
+} from './types';

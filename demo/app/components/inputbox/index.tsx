@@ -1,8 +1,7 @@
 'use client';
 import React from 'react';
-import RichEditor from "@packages/react-richtext";
-
-import { IEntityInfo, IRenderSuggestions, IRenderHint, IEditorState } from "@packages/types";
+import RichEditor, { IEntityInfo, IRenderSuggestions, IRenderHint, IEditorState } from "@packages/react-richtext";
+import "@packages/react-richtext/dist/style.css";
 
 import Modal from '../modal';
 import CloseIcon from '../icons/close-icon';
@@ -250,6 +249,16 @@ function InputBox() {
 
   return (
     <>
+      <style jsx>
+        {`
+          :global(.superhero-editor) {
+            min-height: inherit;
+            height: inherit;
+            overflow: auto;
+            max-height: inherit;
+          }
+        `}
+      </style>
       <div className=" text-gray-400 text-sm font-semibold w-full cursor-pointer" onClick={() => toggleEditor(true)}>
         What do you have in mind?
       </div>
@@ -270,7 +279,7 @@ function InputBox() {
               </div>
             </div>
             {/* rich input content */}
-            <div className="w-full min-h-[221px] max-h-[452px] py-4 px-6 text-gray-600" ref={editorContainerRef}>
+            <div className="w-full min-h-[221px] max-h-[452px] py-4 px-4 lg:px-6 text-gray-600" ref={editorContainerRef}>
               <RichEditor
                 isTriggerInserted={state.isTriggerInserted}
                 externalTriggerKey={state.externalTriggerKey}
@@ -278,6 +287,7 @@ function InputBox() {
                 possibleTriggerKeys={['@']}
                 ref={editorContainerRef}
                 placeholder="What do you feel like talking about today?"
+                styleClass="superhero-editor"
                 setEditorState={setEditorState}
                 fetchSuggestions={fetchSuggestions}
                 renderSuggestions={renderSuggestions}
