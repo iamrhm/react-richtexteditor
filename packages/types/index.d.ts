@@ -20,13 +20,13 @@ export type IEntityMap = {
 /* parsed data types */
 export interface IParsedRichData {
   body: string[];
-  richContent: IEntityMap;
+  entities: IEntityMap;
 }
 
 /* parsed data to render UI */
 export interface IRichShaveFormat {
   body: string[];
-  richContent: IEntityMap;
+  entities: IEntityMap;
   linkMetaInfo: object;
 }
 
@@ -113,6 +113,20 @@ export interface IEditorContext {
   getTagPortal: (offsetKey: string) => void;
   addNewLink: ({ meta, offsetKey } : { meta: IEntityInfo, offsetKey: string }) => void;
   deleteLink: (offsetKey: string) => void;
+}
+
+export interface IContentType {
+  textContent?: {
+    text: string,
+    tag: 'span' | 'a' | 'br',
+    style: 'link' | 'block'
+    elmProps: {
+      href?: string;
+      target?: string;
+      'data-content'?: string;
+      rel?: string;
+    },
+  }
 }
 
 export interface IEditorState extends EditorState {};

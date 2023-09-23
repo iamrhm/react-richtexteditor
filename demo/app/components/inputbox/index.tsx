@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import RichEditor from "@packages/react-richtext";
+import "@packages/react-richtext/dist/style.css";
 
 import { IEntityInfo, IRenderSuggestions, IRenderHint, IEditorState } from "@packages/types";
 
