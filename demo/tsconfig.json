@@ -26,6 +26,6 @@
   "typeRoots": [
     "./node_modules/@types",
   ],
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/components/RichComponents/RichPopups.jsx", "app/components/RichComponents/TagSuggestions.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/RichComponents/RichPopups.jsx", "components/RichComponents/TagSuggestions.jsx"],
   "exclude": ["node_modules"]
 }

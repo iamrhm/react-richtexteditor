@@ -19,4 +19,6 @@
 body {
   color: rgb(var(--black));
   background: rgb(var(--background-white));
+  -webkit-mask-image: linear-gradient(0deg,#fff,#fff9);
+  background-image: url('/bgRepeat.svg');
 }

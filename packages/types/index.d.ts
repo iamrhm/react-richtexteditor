@@ -19,6 +19,7 @@ export type IEntityMap = {
 
 /* parsed data types */
 export interface IParsedRichData {
+  id?: string;
   body: string[];
   entities: IEntityMap;
 }

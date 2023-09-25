@@ -1,28 +1,27 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable jsx-a11y/alt-text */
 'use client';
 import React from 'react';
-import RichEditor from "@packages/react-richtext";
+import RichEditor, { parseEditorData } from "@packages/react-richtext";
 import "@packages/react-richtext/dist/style.css";
 
-import { IEntityInfo, IRenderSuggestions, IRenderHint, IEditorState } from "@packages/types";
+import {
+  IEntityInfo, IRenderSuggestions, IRenderHint,
+  IEditorState, IEntityMap, IEntity, IParsedRichData
+} from "@packages/types";
 
 import Modal from '../modal';
 import CloseIcon from '../icons/close-icon';
 import RichPopUps from '../RichComponents/RichPopups';
 import TagSuggestions from '../RichComponents/TagSuggestions';
 import { triggerMap } from '../../libs/constants';
-import { getFilteredSuperHeros } from '../../services';
-
-interface IEntityData {
-  id: string;
-  info: IEntityInfo;
-  entityType: string;
-}
+import { getFilteredSuperHeros, getURLMetaInfo, saveData } from '../../services';
 
 const initialState: {
   isTriggerInserted: boolean,
   externalTriggerKey: string,
   editorState: IEditorState,
-  entityData: IEntityData,
+  entityData: IEntityMap,
 } = {
   isTriggerInserted: false,
   externalTriggerKey: null,
@@ -54,15 +53,21 @@ const reducer = (state = initialState, action: any) => {
 };
 
 
-function InputBox() {
+function InputBox({
+  addNewPost
+}: {
+  addNewPost: (postData: IParsedRichData) => void
+}) {
   const [showEditor, toggleEditor] = React.useState(false);
   const [state, dispatch] = React.useReducer(reducer, initialState);
-  const previewList = React.useRef<Map<string, any>>(new Map());
+  const [urlMeta, setUrlMeta] = React.useState(null);
+
+  const previewList = React.useRef<Map<string, IEntity>>(new Map());
   const editorContainerRef = React.useRef<HTMLDivElement>(null);
 
   const { editorState, entityData } = state as typeof initialState;
 
-  const setEditorState = (newEditorState: any): void => {
+  const setEditorState = (newEditorState: IEditorState): void => {
     dispatch({
       type: 'UPDATE_EDITOR_STATE',
       payload: { editorState: newEditorState }
@@ -89,11 +94,26 @@ function InputBox() {
   };
 
   const handleSubmit = (): void => {
-    console.log('handleSubmit', editorState.getCurrentContent());
+    const parsedData = parseEditorData(
+      editorState,
+      entityData,
+      previewList.current,
+    );
+    parsedData.id = `${Date.now()}`;
+    addNewPost(parsedData);
+    saveData(parsedData);
+    toggleEditor(false);
     return null;
   };
 
   const updatePreviewMeta = async (tempID: string): Promise<void> => {
+    const urlEntity = previewList.current?.get(tempID);
+    const urlMeta = await getURLMetaInfo(urlEntity.info.url);
+    if (urlMeta) {
+      urlEntity.info = { ...urlEntity.info, ...urlMeta };
+      previewList.current?.set(tempID, urlEntity);
+      setUrlMeta(urlMeta);
+    }
   };
 
   const handleRichLink = (
@@ -101,7 +121,7 @@ function InputBox() {
     data?: { meta: any, offsetKey: string },
   ): void => {
     const { meta = {}, offsetKey } = data || {};
-    const triggerData = previewList.current?.get(offsetKey) || {};
+    const triggerData = previewList.current?.get(offsetKey) || {} as IEntity;
     const tempID = `${Number(`${Date.now()}${previewList.current?.size}${Math.round(Math.random() * 10)}`)}`;
 
     if ((!offsetKey || offsetKey === '') && type !== 'hideMeta') {
@@ -110,15 +130,14 @@ function InputBox() {
     switch (type) {
       case 'add':
         previewList.current?.set(offsetKey, {
-          info: { ...triggerData.info, ...meta },
-          id: triggerData.id || tempID,
+          info: { ...triggerData?.info, ...meta },
+          id: triggerData?.id || tempID,
           type: 'url',
         });
-        updatePreviewMeta(triggerData.id || tempID);
+        updatePreviewMeta(offsetKey);
         return;
       case 'delete':
         previewList.current?.delete(offsetKey);
-        updatePreviewMeta(triggerData.id || tempID);
         break;
       default: break;
     }
@@ -134,7 +153,7 @@ function InputBox() {
       [data.viewText]: {
         info: { ...data },
         id: `${Date.now()}`,
-        entityType: triggerMap[triggerKey === '@' ? '@' : '@'].entityType,
+        type: triggerMap[triggerKey === '@' ? '@' : '@'].entityType,
       },
     };
     dispatch({ type: 'ADD_NEW_TAG', payload: { entityData: newAssetData } });
@@ -246,8 +265,15 @@ function InputBox() {
   };
 
   function handleOnFocus(): void {
-    /* throw new Error('Function not implemented.'); */
+    editorContainerRef.current?.focus();
   }
+
+  React.useEffect(() => {
+    if (!showEditor) {
+      dispatch({ type: 'RESET_EDITOR', payload: initialState });
+      setUrlMeta(null);
+    }
+  }, [showEditor]);
 
   return (
     <>
@@ -271,7 +297,7 @@ function InputBox() {
               </div>
             </div>
             {/* rich input content */}
-            <div className="w-full min-h-[221px] max-h-[452px] py-4 px-6 text-gray-600" ref={editorContainerRef}>
+            <div className="w-full min-h-[221px] max-h-[452px] py-4 px-6 text-gray-600 overflow-auto" ref={editorContainerRef}>
               <RichEditor
                 isTriggerInserted={state.isTriggerInserted}
                 externalTriggerKey={state.externalTriggerKey}
@@ -288,9 +314,29 @@ function InputBox() {
                 onFocusCb={handleOnFocus}
                 handleEntitiesCb={addEntitiesCb}
               />
+              {
+                urlMeta?.image && (
+                  <a className="flex flex-col rounded-lg shadow mb-4 mt-4" href={urlMeta?.url} target="_blank">
+                    <div className="w-full border-solid rounded-lg bg-slate-300">
+                      <img
+                        src={urlMeta?.image}
+                        className="object-cover w-full rounded-lg"
+                      />
+                    </div>
+                    <div className="rounded pt-3 w-full flex flex-col justify-between px-3 pb-4">
+                      <div className="mb-2 text-base font-medium text-gray-700">
+                        {urlMeta?.title}
+                      </div>
+                      <div className="text-sm text-gray-500">
+                        {urlMeta?.description}
+                      </div>
+                    </div>
+                  </a>
+                )
+              }
             </div>
             {/* Footer */}
-            <div className="z-10 rounded-none lg:rounded-b bg-slate-100 flex items-center justify-between py-4 px-3 lg:px-4 border-t border-solid border-gray-200">
+            <div className="z-10 rounded-none lg:rounded-b bg-slate-100 flex items-center justify-between py-4 px-3 lg:px-4 border border-solid border-gray-200">
               <div className="flex justify-between w-full">
                 <div className='flex'>
                   <div

@@ -1,5 +1,5 @@
-import IntroPanel from "./components/intro";
-import Content from "./components/content";
+import IntroPanel from "../components/intro";
+import Content from "../components/content";
 
 function Landing() {
   return (

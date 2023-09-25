@@ -28,7 +28,7 @@ const RichPopUp = ({
 
   return (
     <div
-      className={`bg-white max-w-[500px] fixed border border-gray-200 rounded shadow-md ${className}`}
+      className={`bg-white z-50 min-w-[420px] max-w-[500px] fixed border border-gray-200 rounded shadow-md ${className}`}
       ref={hintRef}
     >
       {children}

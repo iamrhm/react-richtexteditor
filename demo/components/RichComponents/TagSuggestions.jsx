@@ -14,7 +14,7 @@ const renderProfileSuggestionRow = (profileData) => (
           className="w-8 h-8 mr-2 border border-gray-200 rounded-full"
         />
       </div>
-      <div className="w-full">
+      <div className="w-[calc(100% - 32px)">
         <div className="flex justify-between items-center">
           <div className="text-sm">
             {profileData?.name}
@@ -50,7 +50,10 @@ const TagSuggestions = ({
             <div
               className="py-3 px-4 cursor-pointer hover:bg-slate-100"
               key={data.id}
-              onClick={() => handleAddTag(data)}
+              onClick={() => handleAddTag({
+                ...data,
+                viewText: `${trigger}${data.viewText}`
+              })}
             >
               {renderProfileSuggestionRow(data)}
             </div>

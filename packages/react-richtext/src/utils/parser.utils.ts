@@ -1,9 +1,10 @@
-import { RawDraftContentState } from 'draft-js';
+import { convertToRaw } from 'draft-js';
 import linkifyIt from 'linkify-it';
 import tlds from 'tlds';
 
 import type {
-  IEntityMap, IParsedRichData, IEntity, IContentType,
+  IEntityMap, IParsedRichData,
+  IEntity, IContentType, IEditorState
 } from '@packages/types';
 
 const linkify = linkifyIt().tlds(tlds);
@@ -11,12 +12,13 @@ const linkify = linkifyIt().tlds(tlds);
 export const entityTypeRegex = /(\[\[\[#entityType[a-zA-Z0-9-]+\]\]\])/;
 
 export function parseEditorData(
-  currentContent: RawDraftContentState,
+  editorData: IEditorState,
   richAssetData: IEntityMap,
   previewList: Map<string, IEntity>,
 ): IParsedRichData {
   const objOfLinks: { [key: string]: IEntity } = {};
   const objOfAssets: { [key: string]: IEntity } = {};
+  const currentContent = convertToRaw(editorData.getCurrentContent());
 
   let linkCount = 0;
   let count = 0;
@@ -83,7 +85,6 @@ export function parseEditorData(
   const linkMap: { [key: string]: IEntity } = {};
   Object.keys(objOfLinks)
     .forEach((key) => { linkMap[objOfLinks[key].id] = objOfLinks[key]; });
-
   return {
     body: body || [],
     entities: { ...entityMap, ...linkMap },
@@ -96,7 +97,6 @@ export function parseRichDataToUI(richData: IParsedRichData): IContentType[] {
     const entityMap: IEntityMap = {};
     const textContent = typeof body === 'string' ? [body] : body;
     const elm: IContentType[] = [];
-
     Object.keys(entities || {}).forEach((key) => {
       entityMap[`[[[#entityType${key}]]]`] = entities[key];
     });
@@ -161,12 +161,21 @@ export function parseRichDataToUI(richData: IParsedRichData): IContentType[] {
             },
           });
         }
-        elm.push(
-          ...JSXline,
-        );
       }
-      return elm;
+      const endOfLineElm: IContentType = {
+        textContent: {
+          text: null,
+          tag: 'br',
+          style: null,
+          elmProps: null,
+        },
+      };
+      elm.push(
+        ...JSXline,
+        endOfLineElm,
+      );
     }
+    return elm;
   } catch (e) {
     console.error(e);
     return [];

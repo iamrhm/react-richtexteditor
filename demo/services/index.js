@@ -1,6 +1,7 @@
 import axios from "axios";
 import linkifyIt from 'linkify-it';
 import tlds from 'tlds';
+import urlMetadata from 'url-metadata';
 
 const linkify = linkifyIt().tlds(tlds);
 const ACCESS_TOKEN = '451144149941482';
@@ -46,4 +47,24 @@ export const getURLMetaInfo =  async (url) => {
   } catch(e) {
     console.log(e);
   }
+};
+
+export const saveData = async (data) => {
+  try {
+    await axios.post(`api/updateDB`, {
+      data
+    });
+  } catch(e) {
+    console.log(e);
+  }
+};
+
+export const getURLMeta = (entities) => {
+  const urlLists = [];
+  Object.keys(entities || {}).forEach((key) => {
+    if (entities[key]?.type === 'url') {
+      urlLists.push(entities[key]);
+    }
+  });
+  return urlLists[0];
 };
