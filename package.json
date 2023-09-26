@@ -8,6 +8,14 @@
   "scripts": {
     "commit": "cz"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*": "cd packages/react-richtext && prettier lint"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/iamrhm/richtexteditor.git"
