@@ -10,11 +10,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "cd packages/react-richtext && npm run prettier && npm run lint"
     }
-  },
-  "lint-staged": {
-    "*": "cd packages/react-richtext && npm run prettier && npm run lint"
   },
   "repository": {
     "type": "git",
