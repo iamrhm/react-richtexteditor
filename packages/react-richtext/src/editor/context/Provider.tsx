@@ -21,33 +21,28 @@ class Provider extends React.Component<Omit<IEditorProps, 'editorContainerRef'>,
   getEditorState = (): EditorState => this.state.editorState;
 
   setEditorState = (editorState: EditorState): void => {
-    this.setState(prevState => ({
-      ...prevState,
-      editorState,
-    }), () => {
-      this.props.setEditorState(this.state.editorState);
-    });
-  }
+    this.setState(
+      (prevState) => ({
+        ...prevState,
+        editorState,
+      }),
+      () => {
+        this.props.setEditorState(this.state.editorState);
+      },
+    );
+  };
 
-  addNewLink = ({ meta, offsetKey } : {
-    meta: IEntityInfo,
-    offsetKey: string
-  }): void => {
+  addNewLink = ({ meta, offsetKey }: { meta: IEntityInfo; offsetKey: string }): void => {
     this.props.handleLinks('add', { meta, offsetKey });
   };
 
   deleteLink = (offsetKey: string): void => {
     this.props.handleLinks('delete', { meta: null, offsetKey });
-  }
+  };
 
-  setShowSuggestions = (
-    isOpen: boolean = false,
-    offsetKey: string = null,
-  ): void => {
+  setShowSuggestions = (isOpen: boolean = false, offsetKey: string = null): void => {
     this.setState((prevState) => {
-      const newSearchKeys = offsetKey ?
-        prevState.tagState.searchKeys.add(offsetKey) :
-        prevState.tagState.searchKeys;
+      const newSearchKeys = offsetKey ? prevState.tagState.searchKeys.add(offsetKey) : prevState.tagState.searchKeys;
       return {
         ...prevState,
         tagState: {
@@ -56,9 +51,9 @@ class Provider extends React.Component<Omit<IEditorProps, 'editorContainerRef'>,
         },
       };
     });
-  }
+  };
 
-  getTagPortal = (offsetKey: string): React.ReactNode => this.tagPortal.get(offsetKey)
+  getTagPortal = (offsetKey: string): React.ReactNode => this.tagPortal.get(offsetKey);
 
   registerSuggestionPortal = (element: React.ReactNode, offsetKey: string): void => {
     this.tagPortal.set(`${offsetKey}`, element);

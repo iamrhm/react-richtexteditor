@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Editor,
-  EditorState,
-  CompositeDecorator,
-} from 'draft-js';
+import { Editor, EditorState, CompositeDecorator } from 'draft-js';
 import { IEditorProps, IEditorContext, IEntityInfo } from '@packages/types';
 import 'draft-js/dist/Draft.css';
 
@@ -18,19 +14,17 @@ interface IProps extends IEditorProps {
   initialState?: EditorState;
 }
 interface IState {
-  editorState: EditorState
+  editorState: EditorState;
 }
 
 class RichEditor extends Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
-    const decorator = new CompositeDecorator(
-      getDecorators(props.context),
-    );
+    const decorator = new CompositeDecorator(getDecorators(props.context));
     this.state = {
-      editorState: props.initialState ?
-        EditorState.set(props.initialState, { decorator }) :
-        EditorState.createEmpty(decorator),
+      editorState: props.initialState
+        ? EditorState.set(props.initialState, { decorator })
+        : EditorState.createEmpty(decorator),
     };
     this.editorRef = React.createRef();
     this.editorContainer = React.createRef();
@@ -46,33 +40,32 @@ class RichEditor extends Component<IProps, IState> {
     context.setEditorState(this.state.editorState);
     this.focus();
     this.props.onFocusCb();
-  }
+  };
 
   componentDidUpdate = (prevProps: IProps): void => {
     if (this.props.isTriggerInserted && !prevProps.isTriggerInserted) {
       this.addExternalTriggerKey(this.props.externalTriggerKey);
       this.props.resetIsTriggerInserted();
     }
-  }
+  };
 
   logState = (): void => {
     console.log('State', JSON.stringify(this.state.editorState, null, 4));
-  }
+  };
 
   setEditorState = (editorState: EditorState): void => {
     const { context } = this.props;
-    this.setState({
-      editorState,
-    }, () => {
-      context.setEditorState(this.state.editorState);
-    });
-  }
+    this.setState(
+      {
+        editorState,
+      },
+      () => {
+        context.setEditorState(this.state.editorState);
+      },
+    );
+  };
 
-  handleAddEntity = (
-    offsetKey: string,
-    triggerKey: string,
-    entityInfoData: IEntityInfo,
-  ): void => {
+  handleAddEntity = (offsetKey: string, triggerKey: string, entityInfoData: IEntityInfo): void => {
     const { context } = this.props;
     const { editorState } = this.state;
     const newEditorState = addCustomBlocks({
@@ -80,18 +73,18 @@ class RichEditor extends Component<IProps, IState> {
       blockType: 'TAG_ENTITY',
       tagData: { entityInfoData, triggerKey },
     });
-    this.setState({
-      editorState: newEditorState,
-    }, () => {
-      context.setEditorState(this.state.editorState);
-    });
+    this.setState(
+      {
+        editorState: newEditorState,
+      },
+      () => {
+        context.setEditorState(this.state.editorState);
+      },
+    );
     /* Because once asset is tagged we won't show suggestion any more */
     context.unregisterSuggestionPortal(offsetKey);
-    this.props.handleEntitiesCb(
-      entityInfoData,
-      triggerKey,
-    );
-  }
+    this.props.handleEntitiesCb(entityInfoData, triggerKey);
+  };
 
   addExternalTriggerKey = (activeTriggerKey: string): void => {
     const { context } = this.props;
@@ -102,11 +95,14 @@ class RichEditor extends Component<IProps, IState> {
       blockType: 'ADD_TRIGGER',
       triggerKey: trigger,
     });
-    this.setState({
-      editorState: newEditorState,
-    }, () => {
-      context.setEditorState(this.state.editorState);
-    });
+    this.setState(
+      {
+        editorState: newEditorState,
+      },
+      () => {
+        context.setEditorState(this.state.editorState);
+      },
+    );
   };
 
   editorRef: React.RefObject<Editor>;
@@ -129,7 +125,9 @@ class RichEditor extends Component<IProps, IState> {
           <div
             id="editor"
             ref={this.editorContainer}
-            onClick={(): void => { this.editorRef.current?.focus(); }}
+            onClick={(): void => {
+              this.editorRef.current?.focus();
+            }}
           >
             <Editor
               placeholder={this.props.placeholder}
@@ -142,9 +140,7 @@ class RichEditor extends Component<IProps, IState> {
               stripPastedStyles
             />
           </div>
-          <TagSuggestionPopup
-            {...compositeProps}
-          />
+          <TagSuggestionPopup {...compositeProps} />
         </div>
       </>
     );

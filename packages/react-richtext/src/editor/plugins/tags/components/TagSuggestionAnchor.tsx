@@ -1,4 +1,3 @@
-/* eslint-disable react-refresh/only-export-components */
 import React from 'react';
 import { IEditorContext } from '@packages/types';
 
@@ -11,22 +10,13 @@ interface IProps {
 }
 
 const TagSuggestionAnchor = (props: IProps): JSX.Element => {
-  const {
-    setShowSuggestions,
-    registerSuggestionPortal,
-  } = props.context;
+  const { setShowSuggestions, registerSuggestionPortal } = props.context;
   const newTagPortal = React.useRef();
 
   React.useLayoutEffect(() => {
-    setShowSuggestions(
-      true,
-      props.offsetKey,
-    );
+    setShowSuggestions(true, props.offsetKey);
     if (newTagPortal.current) {
-      registerSuggestionPortal(
-        newTagPortal.current,
-        props.offsetKey,
-      );
+      registerSuggestionPortal(newTagPortal.current, props.offsetKey);
     }
     return (): void => {
       setShowSuggestions(false, props.offsetKey);
@@ -34,7 +24,9 @@ const TagSuggestionAnchor = (props: IProps): JSX.Element => {
   }, []);
 
   return (
-    <span className="tagged-text" ref={newTagPortal}>{props.children}</span>
+    <span className="tagged-text" ref={newTagPortal}>
+      {props.children}
+    </span>
   );
 };
 

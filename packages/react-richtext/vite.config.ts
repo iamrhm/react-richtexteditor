@@ -4,10 +4,7 @@ import dts from 'vite-plugin-dts';
 
 /* https://vitejs.dev/config/ */
 export default defineConfig({
-  plugins: [
-    peerDepsExternal(),
-    dts(),
-  ],
+  plugins: [peerDepsExternal(), dts()],
   build: {
     sourcemap: true,
     lib: {
@@ -17,4 +14,4 @@ export default defineConfig({
       fileName: (format) => `index.${format}.js`,
     },
   },
-})
+});

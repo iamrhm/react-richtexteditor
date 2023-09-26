@@ -22,7 +22,7 @@ const LinkComponent = (props: IProps): JSX.Element => {
   const setUrlInfo = async (): Promise<void> => {
     const urlInfo = linkify.match(debouncedDecoratedText);
     let url = debouncedDecoratedText;
-    urlInfo.forEach((match: {url: string}) => {
+    urlInfo.forEach((match: { url: string }) => {
       url = match ? match.url : null;
     });
     context.addNewLink({
@@ -47,16 +47,19 @@ const LinkComponent = (props: IProps): JSX.Element => {
     };
   }, [debouncedDecoratedText]);
 
-  React.useEffect(() => (): void => {
-    context.deleteLink(props.offsetKey);
-  }, []);
+  React.useEffect(
+    () => (): void => {
+      context.deleteLink(props.offsetKey);
+    },
+    [],
+  );
 
   return (
     <>
       <a
         className="external-link"
         style={{
-          color: '#1F7AE0'
+          color: '#1F7AE0',
         }}
       >
         {props.children}

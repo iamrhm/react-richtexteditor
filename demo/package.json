@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@packages/react-richtext": "1.4.5",
+    "@packages/react-richtext": "1.4.8",
     "@packages/types": "*",
     "@zeit/next-css": "^1.0.1",
     "autoprefixer": "^10.4.15",

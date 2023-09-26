@@ -1,18 +1,8 @@
-import {
-  EditorState,
-} from 'draft-js';
+import { EditorState } from 'draft-js';
 
-import {
-  insertMentionBlock,
-  addMentionTrigger,
+import { insertMentionBlock, addMentionTrigger, IAddEntity, IAddEntityTrigger } from './tags/modifier';
 
-  IAddEntity,
-  IAddEntityTrigger,
-} from './tags/modifier';
-
-function addCustomBlocks(
-  data: IAddEntity | IAddEntityTrigger,
-): EditorState {
+function addCustomBlocks(data: IAddEntity | IAddEntityTrigger): EditorState {
   const { blockType } = data;
 
   switch (blockType) {
@@ -21,7 +11,6 @@ function addCustomBlocks(
     case 'ADD_TRIGGER':
       return addMentionTrigger(data as IAddEntityTrigger);
     default:
-      // eslint-disable-next-line consistent-return
       return;
   }
 }

@@ -95,5 +95,38 @@
       }
     },
     "id": "1695667378429"
+  },
+  {
+    "body": [
+      "[[[#entityType16956693261410]]], the \"Merc with a Mouth,\" is an antihero known for his irreverent humor, regenerative healing factor, and breaking the fourth wall. Wade Wilson, scarred and with a twisted sense of justice, embraces his Deadpool persona. Merciless and unpredictable, he takes on contracts while making pop culture references and keeping readers and viewers entertained with his unique brand of chaos. Despite the chaos, there's an underlying complexity to his character, showcasing the struggle between his humanity and the harsh reality he faces.",
+      "",
+      "[[[#entityType169566935200109]]]"
+    ],
+    "entities": {
+      "16956693261410": {
+        "info": {
+          "id": "213",
+          "name": "Deadpool",
+          "intro": "Cavern-X, Sedona, Arizona, Mobile",
+          "image": "https://www.superherodb.com/pictures2/portraits/10/100/835.jpg",
+          "viewText": "@Deadpool"
+        },
+        "id": "16956693261410",
+        "type": "superhero"
+      },
+      "169566935200109": {
+        "info": {
+          "url": "https://www.youtube.com/watch?v=Sy8nPI85Ih4",
+          "viewText": "https://youtu.be/Sy8nPI85Ih4?si=E8NrqwDtkZ4TWYjF",
+          "type": "video.other",
+          "title": "Deadpool \"Maximum Effort\" Highway Scene - Deadpool (2016) Movie CLIP HD - YouTube",
+          "description": "Deadpool Bridge Scene - Maximum Effort - Highway Scene - Car Fight - Deadpool (2016) Movie CLIP HD [1080p]TM & © Fox (2016)Fair use. Copyright Disclaimer Und...",
+          "image": "https://i.ytimg.com/vi/Sy8nPI85Ih4/maxresdefault.jpg"
+        },
+        "id": "169566935200109",
+        "type": "url"
+      }
+    },
+    "id": "1695669357436"
   }
 ]
