@@ -6,6 +6,7 @@
     "demo"
   ],
   "scripts": {
+    "commit": "cz"
   },
   "repository": {
     "type": "git",
@@ -16,5 +17,14 @@
   "bugs": {
     "url": "https://github.com/iamrhm/richtexteditor/issues"
   },
-  "homepage": "https://github.com/iamrhm/richtexteditor#readme"
+  "homepage": "https://github.com/iamrhm/richtexteditor#readme",
+  "devDependencies": {
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
