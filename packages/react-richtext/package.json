@@ -17,6 +17,14 @@
 
     "format": "npm run prettier:fix && npm run lint:fix"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*": "prettier lint"
+  },
   "peerDependencies": {
     "react": ">=16.8.6 || ^17.0.0 || ^18.0.0",
     "react-dom": ">=16.8.6 || ^17.0.0 || ^18.0.0"

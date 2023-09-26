@@ -4,8 +4,8 @@ import Breadcrumb from '../breadcrumb';
 function IntroPanel() {
   return (
     <>
-      <div className="w-full h-full p-3 bg-white">
-        <div className="w-full h-full rounded-md flex flex-col shadow-lg border-solid border border-gray-200">
+      <div className="w-full h-full p-3">
+        <div className="w-full h-full rounded-md bg-white flex flex-col shadow-lg border-solid border border-gray-200">
           <Breadcrumb />
           <div className="w-full py-6 px-3">
             <Profile />

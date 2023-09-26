@@ -20,7 +20,9 @@
   "homepage": "https://github.com/iamrhm/richtexteditor#readme",
   "devDependencies": {
     "commitizen": "^4.3.0",
-    "cz-conventional-changelog": "^3.3.0"
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1"
   },
   "config": {
     "commitizen": {
