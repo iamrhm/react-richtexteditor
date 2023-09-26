@@ -8,11 +8,12 @@
   "scripts": {
     "commit": "cz",
     "prettier": "cd packages/react-richtext && npm run prettier",
-    "lint": "cd packages/react-richtext && npm run lint"
+    "lint": "cd packages/react-richtext && npm run lint",
+    "pre-commit": "npm run prettier && npm run lint"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run prettier && npm run lint"
+      "pre-commit": "pre-commit"
     }
   },
   "repository": {
