@@ -6,7 +6,8 @@ import useForwardedRef from './editor/libs/hooks/useForwardedRef';
 import { IEditorProps } from '@packages/types';
 
 export default React.forwardRef<HTMLDivElement, Omit<
-IEditorProps, 'editorContainerRef'>>((props, ref): JSX.Element => {
+
+  IEditorProps, 'editorContainerRef'>>((props, ref): JSX.Element => {
   const innerRef = useForwardedRef(ref);
   return (
     <Provider {...props}>

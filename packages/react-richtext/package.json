@@ -8,13 +8,10 @@
     "dev": "vite",
     "build": "rm -rf dist tsc && vite build",
     "preview": "vite preview",
-
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "npm run lint -- --fix",
-
     "prettier": "npx prettier --config .prettierrc src --check",
     "prettier:fix": "npm run prettier -- --write",
-
     "format": "npm run prettier:fix && npm run lint:fix"
   },
   "peerDependencies": {
