@@ -10,7 +10,7 @@
     "prettier": "cd packages/react-richtext && npm run prettier",
     "lint": "cd packages/react-richtext && npm run lint",
     "pre-commit": "cd packages/react-richtext && npm run prettier && npm run lint",
-    "prepare": "husky install"
+    "prepare": "npx husky install"
   },
   "repository": {
     "type": "git",

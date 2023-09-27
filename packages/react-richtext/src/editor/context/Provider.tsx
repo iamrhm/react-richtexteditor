@@ -9,7 +9,7 @@ class Provider extends React.Component<Omit<IEditorProps, 'editorContainerRef'>,
     super(props);
     this.state = {
       editorState: null,
-      possibleTriggerKeys: props.possibleTriggerKeys || ['@'],
+      possibleTriggerKeys: props?.possibleTriggerKeys || ['@'],
       tagState: {
         show: false,
         searchKeys: new Set(),
@@ -33,11 +33,11 @@ class Provider extends React.Component<Omit<IEditorProps, 'editorContainerRef'>,
   };
 
   addNewLink = ({ meta, offsetKey }: { meta: IEntityInfo; offsetKey: string }): void => {
-    this.props.handleLinks('add', { meta, offsetKey });
+    this.props.handleLinks?.('add', { meta, offsetKey });
   };
 
   deleteLink = (offsetKey: string): void => {
-    this.props.handleLinks('delete', { meta: null, offsetKey });
+    this.props.handleLinks?.('delete', { meta: null, offsetKey });
   };
 
   setShowSuggestions = (isOpen: boolean = false, offsetKey: string = null): void => {

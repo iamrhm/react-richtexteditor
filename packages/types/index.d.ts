@@ -71,24 +71,24 @@ export interface IHandleEntitiesCb {
 
 /* editor component & context, props/state types */
 export interface IEditorProps {
-  isTriggerInserted: boolean;
-  possibleTriggerKeys: Array<string>;
+  isTriggerInserted?: boolean;
+  possibleTriggerKeys?: Array<string>;
   placeholder: string;
   editorContainerRef: React.MutableRefObject<HTMLDivElement>;
-
   children?: React.ReactNode;
+  setEditorState: (editorState: EditorState) => void;
+
   fontStyleClass?: string;
   initialState?: EditorState;
   externalTriggerKey?: string;
 
-  setEditorState: (editorState: EditorState) => void;
-  fetchSuggestions: IFetchSuggestions;
-  renderSuggestions: IRenderSuggestions;
-  renderHint: IRenderHint;
-  handleLinks: IHandleLinks;
-  handleEntitiesCb: IHandleEntitiesCb;
-  resetIsTriggerInserted: () => void;
-  onFocusCb: () => void;
+  fetchSuggestions?: IFetchSuggestions;
+  renderSuggestions?: IRenderSuggestions;
+  renderHint?: IRenderHint;
+  handleLinks?: IHandleLinks;
+  handleEntitiesCb?: IHandleEntitiesCb;
+  resetIsTriggerInserted?: () => void;
+  onFocusCb?: () => void;
 }
 
 export interface IEditorProviderState {

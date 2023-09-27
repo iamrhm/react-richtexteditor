@@ -15,3 +15,21 @@ export default React.forwardRef<HTMLDivElement, Omit<IEditorProps, 'editorContai
 });
 
 export { parseEditorData, parseRichDataToUI } from './utils/parser.utils';
+
+export type {
+  IEntityInfo,
+  IEntity,
+  IEntityMap,
+  IParsedRichData,
+  IRichShaveFormat,
+  IRenderHint,
+  IRenderSuggestions,
+  IFetchSuggestions,
+  IHandleLinks,
+  IHandleEntitiesCb,
+  IEditorProps,
+  IEditorProviderState,
+  IEditorContext,
+  IContentType,
+  IEditorState,
+} from '@packages/types';

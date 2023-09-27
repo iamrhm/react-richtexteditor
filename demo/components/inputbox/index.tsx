@@ -2,13 +2,18 @@
 /* eslint-disable jsx-a11y/alt-text */
 'use client';
 import React from 'react';
-import RichEditor, { parseEditorData } from "@packages/react-richtext";
-import "@packages/react-richtext/dist/style.css";
+import RichEditor, {
+  parseEditorData,
+  IEntityInfo, IRenderSuggestions, IRenderHint,
+  IEditorState, IEntityMap, IEntity, IParsedRichData
+} from "@mittirorg/react-richtext";
+import "@mittirorg/react-richtext/dist/style.css";
 
+/*
 import {
   IEntityInfo, IRenderSuggestions, IRenderHint,
   IEditorState, IEntityMap, IEntity, IParsedRichData
-} from "@packages/types";
+} from "@packages/types"; */
 
 import Modal from '../modal';
 import CloseIcon from '../icons/close-icon';

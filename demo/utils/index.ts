@@ -8,8 +8,8 @@ import { IParsedRichData } from '@packages/types';
 export const writeToFile = (newData: IParsedRichData): void => {
   const updatedData: IParsedRichData[] = data;
   updatedData.push(newData);
-  fs.writeFileSync(
+  /*fs.writeFileSync(
     path.resolve(''),
     JSON.stringify(updatedData, null, 2)
-  );
+  );*/
 };

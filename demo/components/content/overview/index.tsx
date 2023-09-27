@@ -3,8 +3,7 @@
 "use client";
 import React from "react";
 
-import { parseRichDataToUI } from "@packages/react-richtext";
-import { IContentType, IParsedRichData } from "@packages/types";
+import { parseRichDataToUI, IContentType, IParsedRichData } from "@mittirorg/react-richtext";
 
 import { getURLMeta } from "../../../services";
 import CloseIcon from "../../icons/close-icon";
@@ -36,7 +35,7 @@ function PostOverview({
           </div>
         </div>
         <p className="text-gray-600 text-sm py-4">
-          {post.map((line: IContentType, idx) => {
+          {post.map((line: IContentType, idx: number) => {
             const {tag, text, elmProps} = line.textContent;
             const Tag = tag;
             if (Tag === 'br') return <br />;
@@ -53,7 +52,7 @@ function PostOverview({
           }
         </p>
         {
-          urlMeta.info?.image && (
+          urlMeta?.info?.image && (
             <a className="flex flex-col rounded-lg shadow mb-4" href={urlMeta.info?.url} target="_blank">
               <div className="w-full border-solid rounded-lg bg-slate-300">
                 <img

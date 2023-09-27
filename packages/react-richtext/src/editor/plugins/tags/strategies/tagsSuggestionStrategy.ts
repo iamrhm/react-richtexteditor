@@ -18,7 +18,7 @@ const tagsSuggestionStrategy =
   (context: IEditorContext) =>
   (contentBlock: ContentBlock, callback: (start: number, end: number) => void): void => {
     const text = contentBlock.getText();
-    const triggers = (context.store || {}).possibleTriggerKeys || ['@'];
+    const triggers = (context.store || {})?.possibleTriggerKeys || ['@'];
     const possibleTagRegex = getTagRegex(triggers);
     let matchArr = undefined;
     let start = undefined;

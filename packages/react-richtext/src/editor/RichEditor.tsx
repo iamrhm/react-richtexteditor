@@ -39,13 +39,13 @@ class RichEditor extends Component<IProps, IState> {
     draftEditor?.setAttribute('data-gramm', 'false');
     context.setEditorState(this.state.editorState);
     this.focus();
-    this.props.onFocusCb();
+    this.props.onFocusCb?.();
   };
 
   componentDidUpdate = (prevProps: IProps): void => {
-    if (this.props.isTriggerInserted && !prevProps.isTriggerInserted) {
+    if (this.props?.isTriggerInserted && !prevProps?.isTriggerInserted) {
       this.addExternalTriggerKey(this.props.externalTriggerKey);
-      this.props.resetIsTriggerInserted();
+      this.props.resetIsTriggerInserted?.();
     }
   };
 
@@ -83,7 +83,7 @@ class RichEditor extends Component<IProps, IState> {
     );
     /* Because once asset is tagged we won't show suggestion any more */
     context.unregisterSuggestionPortal(offsetKey);
-    this.props.handleEntitiesCb(entityInfoData, triggerKey);
+    this.props.handleEntitiesCb?.(entityInfoData, triggerKey);
   };
 
   addExternalTriggerKey = (activeTriggerKey: string): void => {

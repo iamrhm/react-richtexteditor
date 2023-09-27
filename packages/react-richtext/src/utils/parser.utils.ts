@@ -10,8 +10,8 @@ export const entityTypeRegex = /(\[\[\[#entityType[a-zA-Z0-9-]+\]\]\])/;
 
 export function parseEditorData(
   editorData: IEditorState,
-  richAssetData: IEntityMap,
-  previewList: Map<string, IEntity>,
+  richAssetData?: IEntityMap,
+  previewList?: Map<string, IEntity>,
 ): IParsedRichData {
   const objOfLinks: { [key: string]: IEntity } = {};
   const objOfAssets: { [key: string]: IEntity } = {};
@@ -21,14 +21,16 @@ export function parseEditorData(
   let count = 0;
   let assetCount = 0;
 
-  /* restructuring link obj with key name of link input text of each link */
-  [...Array.from(previewList)].forEach(([, value]) => {
-    const linkKey = value.info?.viewText ? `${value.info.viewText}${linkCount}` : `${value.info.url}${linkCount}`;
-    if (!objOfLinks[linkKey]) {
-      objOfLinks[linkKey] = { ...value };
-    }
-    linkCount += 1;
-  });
+  if (previewList.size) {
+    /* restructuring link obj with key name of link input text of each link */
+    [...Array.from(previewList || new Map())].forEach(([, value]) => {
+      const linkKey = value.info?.viewText ? `${value.info.viewText}${linkCount}` : `${value.info.url}${linkCount}`;
+      if (!objOfLinks[linkKey]) {
+        objOfLinks[linkKey] = { ...value };
+      }
+      linkCount += 1;
+    });
+  }
 
   const body = currentContent.blocks.map((block) => {
     let blockText = block.text;
