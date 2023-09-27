@@ -9,12 +9,6 @@ import RichEditor, {
 } from "@mittirorg/react-richtext";
 import "@mittirorg/react-richtext/dist/style.css";
 
-/*
-import {
-  IEntityInfo, IRenderSuggestions, IRenderHint,
-  IEditorState, IEntityMap, IEntity, IParsedRichData
-} from "@packages/types"; */
-
 import Modal from '../modal';
 import CloseIcon from '../icons/close-icon';
 import RichPopUps from '../RichComponents/RichPopups';
@@ -258,7 +252,7 @@ function InputBox({
               {triggerMap[currentTriggerKey === '@' ? '@' : '@'].suggestionPlaceholder}
             </span>
             <span
-              className="py-2 px-2 ml-3 hover:bg-slate-100 text-white flex items-center justify-center rounded cursor-pointer text-xs"
+              className="py-2 px-2 ml-3 hover:bg-slate-800 text-slate-100 flex items-center justify-center rounded cursor-pointer text-xs"
               onClick={onClose}
             >
               <CloseIcon />
@@ -282,27 +276,27 @@ function InputBox({
 
   return (
     <>
-      <div className=" text-gray-400 text-sm font-semibold w-full cursor-pointer" onClick={() => toggleEditor(true)}>
+      <div className=" text-gray-200 text-sm font-semibold w-full cursor-pointer" onClick={() => toggleEditor(true)}>
         What do you have in mind?
       </div>
       {showEditor && (
         <Modal>
-          <div className="rounded-none lg:rounded w-[544px] min-h-full lg:min-h-[346px] lg:max-h-[577px] relative text-gray-600 text-sm bg-white border border-solid border-gray-200">
+          <div className="rounded-none lg:rounded w-[544px] min-h-full lg:min-h-[346px] lg:max-h-[577px] relative text-gray-600 text-sm bg-slate-900 border border-solid border-gray-400">
             {/* input header */}
-            <div className="py-4 px-3 lg:px-4 w-full border-b border-solid border-gray-200 flex items-center justify-between">
+            <div className="py-4 px-3 lg:px-4 w-full border-b border-solid border-gray-400 flex items-center justify-between">
               <div className='flex'>
-                <div className="w-6 h-6 mr-3 rounded-full animate-pulse bg-slate-300"></div>
-                <div className="w-[124px] h-6 rounded animate-pulse bg-slate-300"></div>
+                <div className="w-6 h-6 mr-3 rounded-full animate-pulse bg-slate-700"></div>
+                <div className="w-[124px] h-6 rounded animate-pulse bg-slate-700"></div>
               </div>
               <div
-                className="py-2 px-3 hover:bg-slate-100 text-white h-9 flex items-center justify-center rounded cursor-pointer"
+                className="py-2 px-3 hover:bg-slate-800 text-white h-9 flex items-center justify-center rounded cursor-pointer"
                 onClick={() => toggleEditor(false)}
               >
                 <CloseIcon />
               </div>
             </div>
             {/* rich input content */}
-            <div className="w-full min-h-[221px] max-h-[452px] py-4 px-6 text-gray-600 overflow-auto" ref={editorContainerRef}>
+            <div className="w-full min-h-[221px] max-h-[452px] py-4 px-6 text-gray-200 overflow-auto" ref={editorContainerRef}>
               <RichEditor
                 isTriggerInserted={state.isTriggerInserted}
                 externalTriggerKey={state.externalTriggerKey}
@@ -321,18 +315,18 @@ function InputBox({
               />
               {
                 urlMeta?.image && (
-                  <a className="flex flex-col rounded-lg shadow mb-4 mt-4" href={urlMeta?.url} target="_blank">
-                    <div className="w-full border-solid rounded-lg bg-slate-300">
+                  <a className="flex flex-col rounded-lg shadow shadow-slate-500/30 mb-4 mt-4" href={urlMeta?.url} target="_blank">
+                    <div className="w-full border-solid rounded-lg bg-slate-700">
                       <img
                         src={urlMeta?.image}
                         className="object-cover w-full rounded-lg"
                       />
                     </div>
                     <div className="rounded pt-3 w-full flex flex-col justify-between px-3 pb-4">
-                      <div className="mb-2 text-base font-medium text-gray-700">
+                      <div className="mb-2 text-base font-medium text-gray-300">
                         {urlMeta?.title}
                       </div>
-                      <div className="text-sm text-gray-500">
+                      <div className="text-sm text-gray-40">
                         {urlMeta?.description}
                       </div>
                     </div>
@@ -341,11 +335,11 @@ function InputBox({
               }
             </div>
             {/* Footer */}
-            <div className="z-10 rounded-none lg:rounded-b bg-slate-100 flex items-center justify-between py-4 px-3 lg:px-4 border border-solid border-gray-200">
+            <div className="z-10 rounded-none lg:rounded-b bg-slate-100 dark:bg-slate-800 flex items-center justify-between py-4 px-3 lg:px-4 border border-solid border-gray-400">
               <div className="flex justify-between w-full">
                 <div className='flex'>
                   <div
-                    className="py-2 px-4 mr-3 bg-white h-9 flex items-center justify-center rounded cursor-pointer border border-solid border-gray-300"
+                    className="py-2 px-4 mr-3 bg-slate-900 h-9 flex items-center justify-center rounded cursor-pointer border border-solid border-gray-300"
                     onClick={() => insertTagTrigger('@')}
                   >
                     @

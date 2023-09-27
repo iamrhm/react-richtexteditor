@@ -8,10 +8,10 @@ import CloseIcon from '../icons/close-icon';
 const renderProfileSuggestionRow = (profileData) => (
   <>
     <div className="flex">
-      <div className="w-8 h-8 mr-2 border border-gray-200 rounded-full">
+      <div className="w-8 h-8 mr-2 border border-gray-400 rounded-full">
         <img
           src={profileData?.image}
-          className="w-8 h-8 mr-2 border border-gray-200 rounded-full"
+          className="w-8 h-8 mr-2 border border-gray-400 rounded-full"
         />
       </div>
       <div className="w-[calc(100% - 32px)">
@@ -39,7 +39,7 @@ const TagSuggestions = ({
       <div className="relative">
         <div className="absolute right-0 top-0 p-2 z-30">
           <span
-            className="py-2 px-2 hover:bg-slate-100 text-white flex items-center justify-center rounded cursor-pointer text-xs"
+            className="py-2 px-2 hover:bg-slate-800 text-white flex items-center justify-center rounded cursor-pointer text-xs"
             onClick={onClose}
           >
             <CloseIcon />
@@ -48,7 +48,7 @@ const TagSuggestions = ({
         <div className="relative h-52 overflow-y-auto">
           {suggestions.map(data => (
             <div
-              className="py-3 px-4 cursor-pointer hover:bg-slate-100"
+              className="py-3 px-4 cursor-pointer hover:bg-slate-800"
               key={data.id}
               onClick={() => handleAddTag({
                 ...data,
