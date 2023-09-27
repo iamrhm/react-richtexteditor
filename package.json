@@ -1,30 +1,36 @@
 {
   "name": "richtexteditor",
-  "version": "0.1.0",
-  "private": true,
-  "main": "src/index",
-  "dependencies": {
-    "draft-js": "^0.11.7",
-    "linkify-it": "^3.0.3",
-    "next": "^12.3.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "4.0.3",
-    "tlds": "^1.227.0"
-  },
+  "version": "1.0.0",
+  "workspaces": [
+    "packages/*",
+    "demo"
+  ],
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "commit": "cz",
+    "prettier": "cd packages/react-richtext && npm run prettier",
+    "lint": "cd packages/react-richtext && npm run lint",
+    "pre-commit": "cd packages/react-richtext && npm run prettier && npm run lint",
+    "prepare": "npx husky install"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iamrhm/richtexteditor.git"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "author": "Rahul Mitra",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iamrhm/richtexteditor/issues"
+  },
+  "homepage": "https://github.com/iamrhm/richtexteditor#readme",
+  "devDependencies": {
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }

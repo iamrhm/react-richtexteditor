@@ -1,12 +1,3 @@
-## About Rich Text Editor
-- This uses draft-js under the hood.
-- A package to integrate your RichTextEditor input field 
-- You will have custom control over triggers for mentions
-- Have more control towards rendering suggestions for mention
-- Add your logic to fetch the mentioned data
-- Add links also get the preview link meta feature
+# react-richtext
 
-### Coming Soon
-- Image addition 
-
-
+Looking for the react-richtext documentation? [It can now be found here.](https://github.com/iamrhm/richtexteditor/blob/7bf166d50f984fe3dbf43458d2ba94a79b9200fb/packages/react-richtext/README.md#L1)

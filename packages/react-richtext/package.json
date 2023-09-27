@@ -1,0 +1,69 @@
+{
+  "name": "@mittirorg/react-richtext",
+  "version": "1.5.3",
+  "type": "module",
+  "main": "dist/index.es.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "vite",
+    "build": "rm -rf dist tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "npm run lint -- --fix",
+    "prettier": "npx prettier --config .prettierrc src --check",
+    "prettier:fix": "npm run prettier -- --write",
+    "format": "npm run prettier:fix && npm run lint:fix"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "keywords": [
+    "draftjs",
+    "editor",
+    "react",
+    "richtext"
+  ],
+  "author": {
+    "name": "Rahul Mitra",
+    "email": "rahulmitra980@gmail.com"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iamrhm/richtexteditor.git",
+    "directory": "packages/react-richtext"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.6 || ^17.0.0 || ^18.0.0",
+    "react-dom": ">=16.8.6 || ^17.0.0 || ^18.0.0"
+  },
+  "devDependencies": {
+    "@packages/types": "*",
+    "@types/draft-js": "^0.11.12",
+    "@types/linkify-it": "^3.0.3",
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vitejs/plugin-react": "^4.0.3",
+    "draft-js": "^0.11.7",
+    "eslint": "^8.45.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "linkify-it": "^4.0.1",
+    "prettier": "3.0.3",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "tlds": "^1.242.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5",
+    "vite-plugin-dts": "^3.5.4"
+  }
+}

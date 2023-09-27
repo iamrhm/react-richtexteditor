@@ -1,0 +1,132 @@
+[
+  {
+    "body": [
+      "[[[#entityType16956668845560]]] also known as the Dark Knight, is a symbol of justice and vengeance in the crime-ridden Gotham City. He witnessed his parents' murder as a child, driving him to dedicate his life to fighting crime and ensuring that no one suffers the same fate he endured. Clad in a bat-themed suit and armed with an array of cutting-edge technology, he utilizes his exceptional intellect, martial arts skills, and detective abilities to combat both street-level thugs and formidable villains.",
+      "[[[#entityType169566699325503]]]"
+    ],
+    "entities": {
+      "16956668845560": {
+        "info": {
+          "id": "70",
+          "name": "Batman",
+          "intro": "Batcave, Stately Wayne Manor, Gotham City; Hall of Justice, Justice League Watchtower",
+          "image": "https://www.superherodb.com/pictures2/portraits/10/100/639.jpg",
+          "viewText": "@Batman"
+        },
+        "id": "16956668845560",
+        "type": "superhero"
+      },
+      "169566699325503": {
+        "info": {
+          "url": "https://www.youtube.com/watch?v=dbjbnrNNM64",
+          "viewText": "https://youtu.be/dbjbnrNNM64?si=XTCGSGbOg3MlA5-t",
+          "type": "video.other",
+          "title": "The Dark Knight Trilogy - Motivational Tribute - YouTube",
+          "description": "#Batman #ChristopherNolan #TheDarkKnightIf you enjoy this video, please like & subscribe. Thanks!Tribute to my favorite superhero trilogy, and one of the gre...",
+          "image": "https://i.ytimg.com/vi/dbjbnrNNM64/maxresdefault.jpg"
+        },
+        "id": "169566699325503",
+        "type": "url"
+      }
+    },
+    "id": "1695667076473"
+  },
+  {
+    "body": [
+      "[[[#entityType16956671009060]]] the Man of Steel, is a symbol of hope and strength. Clark Kent, his alter ego, conceals his immense powers while upholding justice and defending the innocent. Raised with moral values, he fights for truth, justice, and the greater good, embodying the best of humanity with a touch of the extraordinary.",
+      "[[[#entityType169566709148902]]]"
+    ],
+    "entities": {
+      "16956671009060": {
+        "info": {
+          "id": "644",
+          "name": "Superman",
+          "intro": "Metropolis",
+          "image": "https://www.superherodb.com/pictures2/portraits/10/100/791.jpg",
+          "viewText": "@Superman"
+        },
+        "id": "16956671009060",
+        "type": "superhero"
+      },
+      "169566709148902": {
+        "info": {
+          "url": "https://www.youtube.com/watch?v=T6DJcgm3wNY",
+          "viewText": "https://youtu.be/T6DJcgm3wNY?si=6A1kqzA_xGq5ZeE-",
+          "type": "video.other",
+          "title": "Man of Steel - Official Trailer 3 [HD] - YouTube",
+          "description": "http://manofsteel.comhttp://www.facebook.com/manofsteelIn theaters June 14th.From Warner Bros. and Legendary Pictures comes \"Man of Steel\", starring Henry Ca...",
+          "image": "https://i.ytimg.com/vi/T6DJcgm3wNY/maxresdefault.jpg"
+        },
+        "id": "169566709148902",
+        "type": "url"
+      }
+    },
+    "id": "1695667105937"
+  },
+  {
+    "body": [
+      "[[[#entityType16956673183820]]], aka Peter Parker, is a relatable hero navigating the complexities of being a teenager while shouldering immense responsibilities. After a radioactive spider bite grants him powers, he grapples with guilt over his uncle's death, learning that \"with great power comes great responsibility.\" Balancing personal struggles with crime-fighting, he swings through New York, embodying resilience, quick wit, and a desire to make the world a better place.",
+      "",
+      "[[[#entityType169566737013003]]]"
+    ],
+    "entities": {
+      "16956673183820": {
+        "info": {
+          "id": "620",
+          "name": "Spider-Man",
+          "intro": "New York, New York",
+          "image": "https://www.superherodb.com/pictures2/portraits/10/100/133.jpg",
+          "viewText": "@Spider-Man"
+        },
+        "id": "16956673183820",
+        "type": "superhero"
+      },
+      "169566737013003": {
+        "info": {
+          "url": "https://www.youtube.com/watch?v=shW9i6k8cB0",
+          "viewText": "https://youtu.be/shW9i6k8cB0?si=ujVu2L502SOXE1uU",
+          "type": "video.other",
+          "title": "SPIDER-MAN: ACROSS THE SPIDER-VERSE - Official Trailer #2 (HD) - YouTube",
+          "description": "One Spider-Man wants to change his own destiny. 🕷 Miles Morales returns for the next Spider-Man movie, exclusively in theaters June 2. Watch the new trailer...",
+          "image": "https://i.ytimg.com/vi/shW9i6k8cB0/maxresdefault.jpg"
+        },
+        "id": "169566737013003",
+        "type": "url"
+      }
+    },
+    "id": "1695667378429"
+  },
+  {
+    "body": [
+      "[[[#entityType16956693261410]]], the \"Merc with a Mouth,\" is an antihero known for his irreverent humor, regenerative healing factor, and breaking the fourth wall. Wade Wilson, scarred and with a twisted sense of justice, embraces his Deadpool persona. Merciless and unpredictable, he takes on contracts while making pop culture references and keeping readers and viewers entertained with his unique brand of chaos. Despite the chaos, there's an underlying complexity to his character, showcasing the struggle between his humanity and the harsh reality he faces.",
+      "",
+      "[[[#entityType169566935200109]]]"
+    ],
+    "entities": {
+      "16956693261410": {
+        "info": {
+          "id": "213",
+          "name": "Deadpool",
+          "intro": "Cavern-X, Sedona, Arizona, Mobile",
+          "image": "https://www.superherodb.com/pictures2/portraits/10/100/835.jpg",
+          "viewText": "@Deadpool"
+        },
+        "id": "16956693261410",
+        "type": "superhero"
+      },
+      "169566935200109": {
+        "info": {
+          "url": "https://www.youtube.com/watch?v=Sy8nPI85Ih4",
+          "viewText": "https://youtu.be/Sy8nPI85Ih4?si=E8NrqwDtkZ4TWYjF",
+          "type": "video.other",
+          "title": "Deadpool \"Maximum Effort\" Highway Scene - Deadpool (2016) Movie CLIP HD - YouTube",
+          "description": "Deadpool Bridge Scene - Maximum Effort - Highway Scene - Car Fight - Deadpool (2016) Movie CLIP HD [1080p]TM & © Fox (2016)Fair use. Copyright Disclaimer Und...",
+          "image": "https://i.ytimg.com/vi/Sy8nPI85Ih4/maxresdefault.jpg"
+        },
+        "id": "169566935200109",
+        "type": "url"
+      }
+    },
+    "id": "1695669357436"
+  }
+]
