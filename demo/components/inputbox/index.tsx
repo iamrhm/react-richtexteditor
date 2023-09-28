@@ -335,21 +335,18 @@ function InputBox({
               }
             </div>
             {/* Footer */}
-            <div className="z-10 rounded-none lg:rounded-b bg-slate-100 dark:bg-slate-800 flex items-center justify-between py-4 px-3 lg:px-4 border border-solid border-gray-400">
+            <div className="z-10 rounded-none lg:rounded-b bg-slate-800 flex items-center justify-between py-4 px-3 lg:px-4 border border-solid border-gray-400">
               <div className="flex justify-between w-full">
                 <div className='flex'>
                   <div
-                    className="py-2 px-4 mr-3 bg-slate-900 h-9 flex items-center justify-center rounded cursor-pointer border border-solid border-gray-300"
+                    className="py-2 text-white px-4 mr-3 bg-slate-900 h-9 flex items-center justify-center rounded cursor-pointer border border-solid border-gray-300"
                     onClick={() => insertTagTrigger('@')}
                   >
                     @
                   </div>
-                  {/* <div className="py-2 px-4 bg-white h-9 flex items-center justify-center rounded cursor-pointer border border-solid border-gray-300">
-                    Add Image
-                  </div> */}
                 </div>
                 <div
-                  className="py-2 px-4 bg-black text-white h-9 items-center justify-center rounded cursor-pointer"
+                  className="py-2 px-4 bg-slate-900 text-white h-9 items-center justify-center rounded cursor-pointer border border-solid border-gray-300"
                   onClick={handleSubmit}
                 >
                   Post
