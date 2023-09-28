@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@mittirorg/react-richtext": "^1.5.7",
+    "@mittirorg/react-richtext": "^1.6.0",
     "@zeit/next-css": "^1.0.1",
     "autoprefixer": "^10.4.15",
     "axios": "^1.5.0",

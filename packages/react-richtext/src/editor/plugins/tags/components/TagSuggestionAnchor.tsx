@@ -1,5 +1,5 @@
 import React from 'react';
-import { IEditorContext } from '@packages/types';
+import { IEditorContext } from '../../../../../types';
 
 import withConsumer from '../../../context/withConsumer';
 

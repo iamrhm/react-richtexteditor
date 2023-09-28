@@ -1,5 +1,5 @@
 import { EditorState, Modifier } from 'draft-js';
-import { IEntityInfo } from '@packages/types';
+import { IEntityInfo } from '../../../../types';
 
 import getSearchText from './utils/getSearchText';
 

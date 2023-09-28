@@ -1,6 +1,6 @@
 import React from 'react';
 import { EditorState } from 'draft-js';
-import { IEditorContext, IEditorProps, IEditorProviderState, IEntityInfo } from '@packages/types';
+import { IEditorContext, IEditorProps, IEditorProviderState, IEntityInfo } from '../../../types';
 
 export const EditorContext = React.createContext<IEditorContext | null>(null);
 

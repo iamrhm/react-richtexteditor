@@ -1,5 +1,5 @@
 import { ContentBlock } from 'draft-js';
-import { IEditorContext } from '@packages/types';
+import { IEditorContext } from '../../../../../types';
 
 import defaultTagRegExp from '../../../constants/defaultTagRegExp';
 

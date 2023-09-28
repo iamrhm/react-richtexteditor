@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 
 import data from '../data/data.json';
-import { IParsedRichData } from '@packages/types';
+import { IParsedRichData } from '@mittirorg/react-richtext';
 
 
 export const writeToFile = (newData: IParsedRichData): void => {

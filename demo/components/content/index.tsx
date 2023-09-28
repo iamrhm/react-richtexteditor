@@ -5,7 +5,7 @@ import {
   TransitionGroup,
 } from 'react-transition-group';
 
-import { IParsedRichData } from "@packages/types";
+import { IParsedRichData } from "@mittirorg/react-richtext";
 
 import InputBox from "../inputbox";
 import PostOverview from "./overview";

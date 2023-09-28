@@ -1,5 +1,5 @@
 import React from 'react';
-import { IEditorProps, IEditorContext, IEntityInfo } from '@packages/types';
+import { IEditorProps, IEditorContext, IEntityInfo } from '../../../../../types';
 
 import withConsumer from '../../../context/withConsumer';
 import getSuggestionQuery from '../utils/getSuggestionQuery';

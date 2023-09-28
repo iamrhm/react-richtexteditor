@@ -2,7 +2,7 @@ import { convertToRaw } from 'draft-js';
 import linkifyIt from 'linkify-it';
 import tlds from 'tlds';
 
-import type { IEntityMap, IParsedRichData, IEntity, IContentType, IEditorState } from '@packages/types';
+import type { IEntityMap, IParsedRichData, IEntity, IContentType, IEditorState } from '../../types';
 
 const linkify = linkifyIt().tlds(tlds);
 

@@ -3,7 +3,7 @@ import React from 'react';
 import Provider from './editor/context/Provider';
 import RichEditor from './editor/RichEditor';
 import useForwardedRef from './editor/libs/hooks/useForwardedRef';
-import { IEditorProps } from '@packages/types';
+import { IEditorProps } from '../types';
 
 export default React.forwardRef<HTMLDivElement, Omit<IEditorProps, 'editorContainerRef'>>((props, ref): JSX.Element => {
   const innerRef = useForwardedRef(ref);
@@ -32,4 +32,4 @@ export type {
   IEditorContext,
   IContentType,
   IEditorState,
-} from '@packages/types';
+} from '../types';
