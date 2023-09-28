@@ -1,5 +1,5 @@
 {
-  "name": "@mittirorg/react-richtext",
+  "name": "@packages/react-richtext",
   "version": "1.6.0",
   "type": "module",
   "main": "./dist/index.es.js",
