@@ -1,5 +1,7 @@
 # https://docs.npmjs.com/misc/developers#keeping-files-out-of-your-package
 
+src
+
 #tests
 test
 coverage

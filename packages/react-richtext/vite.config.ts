@@ -6,7 +6,6 @@ import dts from 'vite-plugin-dts';
 export default defineConfig({
   plugins: [peerDepsExternal(), dts()],
   build: {
-    sourcemap: true,
     lib: {
       entry: 'src/index.tsx',
       name: 'lib',

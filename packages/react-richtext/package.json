@@ -1,9 +1,9 @@
 {
   "name": "@mittirorg/react-richtext",
-  "version": "1.5.5",
+  "version": "1.5.7",
   "type": "module",
-  "main": "dist/index.es.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.es.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "vite",
     "build": "rm -rf dist tsc && vite build",
@@ -15,8 +15,7 @@
     "format": "npm run prettier:fix && npm run lint:fix"
   },
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "keywords": [
     "draftjs",
